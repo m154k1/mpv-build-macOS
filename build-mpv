@@ -1,0 +1,44 @@
+#!/usr/bin/env bash -e
+#
+# mpv
+# https://github.com/mpv-player/mpv.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+source utils/pkg-import
+
+pkgname="mpv"
+pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+srcdir="src/mpv"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+import_local_pkg ffmpeg
+import_local_pkg freetype
+import_local_pkg harfbuzz
+import_local_pkg libass
+import_local_pkg libplacebo
+import_local_pkg vulkan
+
+import_homebrew_pkg libarchive
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dlua=luajit \
+  -Dmacos-touchbar=disabled \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}" --tags runtime,devel
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

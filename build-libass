@@ -1,0 +1,40 @@
+#!/usr/bin/env bash -e
+#
+# libass
+# https://github.com/libass/libass.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+source utils/pkg-import
+
+pkgname="libass"
+pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+srcdir="src/libass"
+
+import_local_pkg freetype
+import_local_pkg harfbuzz
+
+export CFLAGS="${CFLAGS} -O3 -flto=thin"
+
+cd "${srcdir}"
+
+./autogen.sh
+
+./configure \
+  --prefix="${pkgdir}" \
+  --enable-shared \
+  --disable-static \
+  --disable-dependency-tracking \
+  --enable-coretext \
+  --enable-libunibreak \
+  --enable-asm \
+  --disable-fontconfig \
+  "$@"
+
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+
+# vi:set ts=2 sw=2 et:

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash -e
+#
+# libplacebo
+# https://code.videolan.org/videolan/libplacebo.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+source utils/pkg-import
+
+pkgname="libplacebo"
+pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+srcdir="src/libplacebo"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+import_local_pkg vulkan
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dvulkan-registry="${PKGPREFIX:-/opt/local}/vulkan/share/vulkan/registry/vk.xml" \
+  -Dvulkan=enabled \
+  -Dshaderc=enabled \
+  -Dlcms=enabled \
+  -Dxxhash=enabled \
+  -Dopengl=disabled \
+  -Dd3d11=disabled \
+  -Dglslang=disabled \
+  -Ddemos=false \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

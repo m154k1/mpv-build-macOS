@@ -1,0 +1,70 @@
+#!/usr/bin/env bash -e
+#
+# FFmpeg
+# https://git.ffmpeg.org/ffmpeg.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+source utils/pkg-import
+
+pkgname="ffmpeg"
+pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+srcdir="src/ffmpeg"
+
+import_local_pkg freetype
+import_local_pkg harfbuzz
+import_local_pkg libass
+import_local_pkg libplacebo
+import_local_pkg vulkan
+
+cd "${srcdir}"
+
+./configure \
+  --prefix="${pkgdir}" \
+  --pkg-config="${PKG_CONFIG}" \
+  --arch="$(uname -m)" \
+  --cpu=host \
+  --cc=clang \
+  --extra-cflags="-I$(brew --prefix)/include" \
+  --extra-ldflags="-L$(brew --prefix)/lib -Wl,-ld_classic" \
+  --enable-shared \
+  --enable-lto \
+  --enable-gpl \
+  --enable-version3 \
+  --enable-nonfree \
+  --enable-lcms2 \
+  --enable-libass \
+  --enable-libdav1d \
+  --enable-libfreetype \
+  --enable-libfribidi \
+  --enable-libharfbuzz \
+  --enable-libjxl \
+  --enable-libmp3lame \
+  --enable-libopus \
+  --enable-libplacebo \
+  --enable-libshaderc \
+  --enable-libsvtav1 \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libwebp \
+  --enable-libx264 \
+  --enable-libx265 \
+  --enable-libxml2 \
+  --enable-libzimg \
+  --enable-openssl \
+  --disable-static \
+  --disable-debug \
+  --disable-doc \
+  --disable-sdl2 \
+  --disable-libxcb \
+  --disable-xlib \
+  "$@"
+
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+rm -rf "${pkgdir}"/share
+
+# vi:set ts=2 sw=2 et:

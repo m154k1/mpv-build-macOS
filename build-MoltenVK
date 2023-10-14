@@ -1,0 +1,33 @@
+#!/usr/bin/env bash -e
+#
+# MoltenVK
+# https://github.com/KhronosGroup/MoltenVK.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="moltenvk"
+pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+srcdir="src/MoltenVK"
+builddir="$(realpath "${srcdir}")/Package/Latest/MoltenVK/dylib/macOS"
+
+cd "${srcdir}"
+
+./fetchDependencies \
+  --macos \
+  --v-headers-root "${PKGPREFIX:-/opt/local}/vulkan"
+
+make macos MVK_CONFIG_LOG_LEVEL=1
+
+sed -i '' "s|./libMoltenVK|${pkgdir}/lib/libMoltenVK|g" "${builddir}"/MoltenVK_icd.json
+cat "${builddir}"/MoltenVK_icd.json
+
+rm -rf "${pkgdir}"
+
+mkdir -p "${pkgdir}"/lib "${pkgdir}"/share/vulkan/icd.d
+install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
+install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/share/vulkan/icd.d
+
+rm -rf ~/.swiftpm
+
+# vi:set ts=2 sw=2 et:
