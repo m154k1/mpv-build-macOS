@@ -18,6 +18,7 @@ rm -rf "${builddir}"
 
 meson setup "${builddir}" "${srcdir}" \
   --prefix="${pkgdir}" \
+  --native-file=meson/libplacebo.ini \
   -Dwrap_mode=nodownload \
   -Dbuildtype=release \
   -Db_lto=true \
