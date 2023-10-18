@@ -17,7 +17,7 @@ cd "${srcdir}"
   --macos \
   --v-headers-root "${PKGPREFIX:-/opt/local}/vulkan"
 
-make macos MVK_CONFIG_LOG_LEVEL=1
+make macos MVK_CONFIG_LOG_LEVEL=2
 
 sed -i '' "s|./libMoltenVK|${pkgdir}/lib/libMoltenVK|g" "${builddir}"/MoltenVK_icd.json
 cat "${builddir}"/MoltenVK_icd.json
