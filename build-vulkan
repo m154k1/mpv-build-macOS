@@ -36,9 +36,10 @@ cmake \
   -B "${builddir}" \
   -S "${loadersrcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_LIBDIR=lib \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DVULKAN_HEADERS_INSTALL_DIR="${pkgdir}" \
   -DFALLBACK_DATA_DIRS="$( IFS=:; echo "${icddatadirs[*]}" )" \
   "$@"
