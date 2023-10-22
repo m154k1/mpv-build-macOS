@@ -46,7 +46,7 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
 
    ```sh
    git -C src clone "https://github.com/KhronosGroup/MoltenVK.git"
-   ./build-MoltenVK
+   ./build-moltenvk
    ```
 
 3. [**libplacebo**](https://code.videolan.org/videolan/libplacebo)  
@@ -68,9 +68,9 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
    ```sh
    git -C src clone "https://gitlab.freedesktop.org/freetype/freetype.git"
    git -C src clone "https://github.com/harfbuzz/harfbuzz.git"
-   ./build-FreeType -Dharfbuzz=disabled
-   ./build-HarfBuzz
-   ./build-FreeType
+   ./build-freetype -Dharfbuzz=disabled
+   ./build-harfbuzz
+   ./build-freetype
    ```
 
 6. [**libass**](https://github.com/libass/libass)  
@@ -84,7 +84,7 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
 
    ```sh
    git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
-   ./build-FFmpeg
+   ./build-ffmpeg
    ```
 
 8. [**mpv**](https://github.com/mpv-player/mpv)  
@@ -151,10 +151,10 @@ graph TD;
 ### Patches
 
 - [`mpv/0001-vo-gpu-next-videotoolbox.patch`](/patches/mpv/0001-vo-gpu-next-videotoolbox.patch)  
-  info: [rcombs/mpv@fd1f9a2](https://github.com/rcombs/mpv/commit/fd1f9a2051741f7f44c1000b0d35304d6e8f041f)  
+  source: [rcombs/mpv@fd1f9a2](https://github.com/rcombs/mpv/commit/fd1f9a2051741f7f44c1000b0d35304d6e8f041f)  
 
 - [`mpv/0002-ao-coreaudio-fix-idle.patch`](/patches/mpv/0002-ao-coreaudio-fix-idle.patch)  
-  info: mpv-player/mpv#11667  
+  source: mpv-player/mpv#11667  
 
 - [`mpv/0003-osdep-macos-fix-display-name.patch`](/patches/mpv/0003-osdep-macos-fix-display-name.patch)  
-  info: mpv-player/mpv#9885  
+  source: mpv-player/mpv#9885  
