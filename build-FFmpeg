@@ -11,6 +11,7 @@ pkgname="ffmpeg"
 pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
 srcdir="src/ffmpeg"
 
+import_local_pkg dav1d
 import_local_pkg freetype
 import_local_pkg harfbuzz
 import_local_pkg libass

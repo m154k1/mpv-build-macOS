@@ -1,4 +1,3 @@
-dav1d
 fribidi
 jpeg-xl
 lame

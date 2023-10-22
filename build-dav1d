@@ -1,26 +1,15 @@
 #!/usr/bin/env bash -e
 #
-# mpv
-# https://github.com/mpv-player/mpv.git
+# dav1d
+# https://code.videolan.org/videolan/dav1d.git
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
-pkgname="mpv"
+pkgname="dav1d"
 pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
-srcdir="src/mpv"
+srcdir="src/dav1d"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
-
-import_local_pkg dav1d
-import_local_pkg ffmpeg
-import_local_pkg freetype
-import_local_pkg harfbuzz
-import_local_pkg libass
-import_local_pkg libplacebo
-import_local_pkg vulkan
-
-import_homebrew_pkg libarchive
 
 rm -rf "${builddir}"
 
@@ -30,15 +19,15 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dlua=luajit \
-  -Dmacos-touchbar=disabled \
+  -Denable_tools=false \
+  -Denable_tests=false \
   "$@"
 
 meson compile -C "${builddir}"
 
 rm -rf "${pkgdir}"
 
-meson install -C "${builddir}" --tags runtime,devel
+meson install -C "${builddir}"
 
 rm -rf "${builddir}"
 

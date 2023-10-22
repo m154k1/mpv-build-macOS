@@ -49,7 +49,21 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
    ./build-MoltenVK
    ```
 
-3. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
+3. [**libplacebo**](https://code.videolan.org/videolan/libplacebo)  
+
+   ```sh
+   git -C src clone --recursive "https://code.videolan.org/videolan/libplacebo.git"
+   ./build-libplacebo
+   ```
+
+4. [**dav1d**](https://code.videolan.org/videolan/dav1d)  
+
+   ```sh
+   git -C src clone "https://code.videolan.org/videolan/dav1d.git"
+   ./build-dav1d
+   ```
+
+5. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
 
    ```sh
    git -C src clone "https://gitlab.freedesktop.org/freetype/freetype.git"
@@ -59,28 +73,21 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
    ./build-FreeType
    ```
 
-4. [**libass**](https://github.com/libass/libass)  
+6. [**libass**](https://github.com/libass/libass)  
 
    ```sh
    git -C src clone "https://github.com/libass/libass.git"
    ./build-libass
    ```
 
-5. [**libplacebo**](https://code.videolan.org/videolan/libplacebo)  
-
-   ```sh
-   git -C src clone --recursive "https://code.videolan.org/videolan/libplacebo.git"
-   ./build-libplacebo
-   ```
-
-6. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+7. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
    ```sh
    git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
    ./build-FFmpeg
    ```
 
-7. [**mpv**](https://github.com/mpv-player/mpv)  
+8. [**mpv**](https://github.com/mpv-player/mpv)  
 
    ```sh
    git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -88,7 +95,7 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
    ./build-mpv
    ```
 
-8. Add binaries to your `$PATH`:  
+9. Add binaries to your `$PATH`:  
 
    ```sh
    cd ~/.local/bin
@@ -129,6 +136,7 @@ graph TD;
    vulkan-->moltenvk;
    ffmpeg-->libplacebo;
    ffmpeg-->vulkan;
+   ffmpeg-->dav1d;
    ffmpeg-->libass;
    ffmpeg-->freetype;
    ffmpeg-->harfbuzz;
