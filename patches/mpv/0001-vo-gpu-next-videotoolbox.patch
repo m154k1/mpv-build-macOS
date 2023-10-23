@@ -1,8 +1,8 @@
 diff --git a/meson.build b/meson.build
-index 063bca64a6..906438130c 100644
+index 2ccba61138..af770208aa 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -1388,7 +1388,7 @@ endif
+@@ -1380,7 +1380,7 @@ endif
  ios_gl = cc.has_header_symbol('OpenGLES/ES3/glext.h', 'GL_RGB32F', required: get_option('ios-gl'))
  features += {'ios-gl': ios_gl}
  if features['ios-gl']
@@ -11,7 +11,7 @@ index 063bca64a6..906438130c 100644
  endif
  
  rpi_mmal_opt = get_option('rpi-mmal').require(
-@@ -1480,8 +1480,12 @@ videotoolbox_gl = get_option('videotoolbox-gl').require(
+@@ -1461,8 +1461,12 @@ videotoolbox_gl = get_option('videotoolbox-gl').require(
      error_message: 'gl-cocoa nor ios-gl could be found!',
  )
  features += {'videotoolbox-gl': videotoolbox_gl.allowed()}
@@ -26,11 +26,11 @@ index 063bca64a6..906438130c 100644
  
  
 diff --git a/video/out/gpu/hwdec.c b/video/out/gpu/hwdec.c
-index 878ac148fb..2a0a0fe625 100644
+index d8be6da777..9b59bbee36 100644
 --- a/video/out/gpu/hwdec.c
 +++ b/video/out/gpu/hwdec.c
 @@ -44,7 +44,7 @@ const struct ra_hwdec_driver *const ra_hwdec_drivers[] = {
- #if HAVE_VAAPI_EGL || HAVE_VAAPI_LIBPLACEBO
+ #if HAVE_VAAPI
      &ra_hwdec_vaapi,
  #endif
 -#if HAVE_VIDEOTOOLBOX_GL || HAVE_IOS_GL
