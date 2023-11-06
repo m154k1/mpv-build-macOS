@@ -2,8 +2,7 @@
 
 import_local_pkg() {
   local pkgname="$1"
-  local pkgprefix="${PKGPREFIX:-/opt/local}"
-  local pcdir="${pkgprefix}/${pkgname}/lib/pkgconfig"
+  local pcdir="/opt/local/${pkgname}/lib/pkgconfig"
   local pcpath="${PKG_CONFIG_PATH:+${PKG_CONFIG_PATH}:}"
 
   if [ $# != 1 ] || [ -z "${pkgname}" ]; then

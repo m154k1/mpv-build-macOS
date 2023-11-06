@@ -8,7 +8,7 @@ set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="harfbuzz"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 srcdir="src/harfbuzz"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 

@@ -7,15 +7,15 @@ cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="moltenvk"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 srcdir="src/MoltenVK"
-builddir="$(realpath "${srcdir}")/Package/Latest/MoltenVK/dylib/macOS"
+builddir="Package/Latest/MoltenVK/dylib/macOS"
 
 cd "${srcdir}"
 
 ./fetchDependencies \
   --macos \
-  --v-headers-root "${PKGPREFIX:-/opt/local}/vulkan"
+  --v-headers-root /opt/local/vulkan
 
 make macos MVK_CONFIG_LOG_LEVEL=2
 

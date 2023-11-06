@@ -10,13 +10,13 @@ cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="vulkan"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 headerssrcdir="src/Vulkan-Headers"
 loadersrcdir="src/Vulkan-Loader"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 icddatadirs=(
-  "${PKGPREFIX:-/opt/local}/moltenvk/share"
+  "/opt/local/moltenvk/share"
   "/usr/local/share"
 )
 

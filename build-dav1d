@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="dav1d"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 srcdir="src/dav1d"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 

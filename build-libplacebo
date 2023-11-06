@@ -8,7 +8,7 @@ set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="libplacebo"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 srcdir="src/libplacebo"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
@@ -22,7 +22,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dvulkan-registry="${PKGPREFIX:-/opt/local}/vulkan/share/vulkan/registry/vk.xml" \
+  -Dvulkan-registry="/opt/local/vulkan/share/vulkan/registry/vk.xml" \
   -Dvulkan=enabled \
   -Dshaderc=enabled \
   -Dlcms=enabled \

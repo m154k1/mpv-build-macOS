@@ -8,7 +8,7 @@ set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="libass"
-pkgdir="${PKGPREFIX:-/opt/local}/${pkgname}"
+pkgdir="/opt/local/${pkgname}"
 srcdir="src/libass"
 
 import_local_pkg freetype
