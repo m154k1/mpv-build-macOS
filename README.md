@@ -151,7 +151,7 @@ graph TD;
 ### Patches
 
 - [`mpv/0001-vo-gpu-next-videotoolbox.patch`](/patches/mpv/0001-vo-gpu-next-videotoolbox.patch)  
-  source: [rcombs/mpv@fd1f9a2](https://github.com/rcombs/mpv/commit/fd1f9a2051741f7f44c1000b0d35304d6e8f041f)  
+  source: mpv-player/mpv#12776  
 
 - [`mpv/0002-ao-coreaudio-fix-idle.patch`](/patches/mpv/0002-ao-coreaudio-fix-idle.patch)  
   source: mpv-player/mpv#11667  
