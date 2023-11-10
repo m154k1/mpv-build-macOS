@@ -155,6 +155,3 @@ graph TD;
 
 - [`mpv/0002-ao-coreaudio-fix-idle.patch`](/patches/mpv/0002-ao-coreaudio-fix-idle.patch)  
   source: mpv-player/mpv#11667  
-
-- [`mpv/0003-osdep-macos-fix-display-name.patch`](/patches/mpv/0003-osdep-macos-fix-display-name.patch)  
-  source: mpv-player/mpv#9885  
