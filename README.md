@@ -1,5 +1,5 @@
 # mpv-build-macOS
-A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenVK](https://github.com/KhronosGroup/MoltenVK) support.  
+A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://github.com/KhronosGroup/MoltenVK) support.  
 
 ### Requirements
 - [Xcode.app](https://developer.apple.com/xcode/)
@@ -91,7 +91,6 @@ A set of scripts and patches that help build [mpv](https://mpv.io) with [MoltenV
 
    ```sh
    git -C src clone "https://github.com/mpv-player/mpv.git"
-   git -C src/mpv apply "$(realpath patches/mpv)"/*
    ./build-mpv
    ```
 
@@ -121,8 +120,6 @@ gpu-context=macvk
 - `MVK_CONFIG_LOG_LEVEL=3`  
   Enables verbose MoltenVK logging.  
 
----
-
 ### Dependency graph
 
 ```mermaid
@@ -145,13 +142,3 @@ graph TD;
    freetype-->harfbuzz;
    harfbuzz-->freetype;
 ```
-
----
-
-### Patches
-
-- [`mpv/0001-vo-gpu-next-videotoolbox.patch`](/patches/mpv/0001-vo-gpu-next-videotoolbox.patch)  
-  source: mpv-player/mpv#12776  
-
-- [`mpv/0002-ao-coreaudio-fix-idle.patch`](/patches/mpv/0002-ao-coreaudio-fix-idle.patch)  
-  source: mpv-player/mpv#11667  
