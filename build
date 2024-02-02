@@ -1,0 +1,134 @@
+#!/usr/bin/env zsh
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
+WORKDIR=$(pwd)
+prefix="~/local"
+with_bundle=0
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "Only support macOS now."
+  exit 1
+fi
+
+# Colors
+GREEN='\033[0;32m'
+WHITE='\033[1;37m'
+GRAY='\033[37;40m'
+NC='\033[0m'
+
+usage() {
+  echo "Usage: $0 [-p|--prefix <prefix>] [-b|--with-bundle] [-h|--help]"
+}
+
+# parse flag
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    -p|--prefix)
+      prefix="$2"
+      shift
+      ;;
+    -b|--with-bundle)
+      with_bundle=1
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    -*|--*=)
+      echo "Error: Unsupported flag $1" >&2
+      usage
+      exit 1
+      ;;
+    *)
+      params="$params $1"
+      ;;
+  esac
+  shift
+done
+
+# Install homebrew if not found
+if ! command -v brew &> /dev/null; then
+  echo -n "${GRAY}brew is currently not found on your system. installing ... ${NC}"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &> /dev/null && echo "${GREEN}Done${NC}"
+fi
+
+source "$ZDOTDIR/.zshrc" || source "$HOME/.zshrc" || source "$HOME/.zshenv"
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK
+
+if [ ! -e $prefix ]; then
+  sudo mkdir -p "$prefix"
+fi
+
+build_deps=$(xargs echo < homebrew/build.txt)
+runtime_deps=$(xargs echo < homebrew/runtime.txt)
+
+deps=$(
+cat <<EOF
+$build_deps $runtime_deps
+EOF
+)
+
+installed=$(brew list -1 --formula)
+depsArr=(${(s: :)deps})
+
+for dep in "${depsArr[@]}"; do
+  if echo "$installed" | grep -q "$dep"; then
+    echo "${GREEN}$dep is already installed.${NC}"
+  else
+    echo -n "${GRAY}Installing $dep ... ${NC}"
+    errvar=$(brew install $dep > /dev/null) && echo "${GREEN} Done${NC}" || { echo "${WHITE} failed.${NC}"; echo $errvar; exit 1 }
+  fi
+done
+
+sudo chown -R $(whoami):admin "$prefix"
+
+check_and_clone() {
+  if [ -d "$WORKDIR/src/$1" ]; then
+    cd "$WORKDIR/src/$1"
+    if [ "$(git config --get remote.origin.url)" = "$2" ]; then
+      git pull --recurse-submodules
+    else
+      echo "${WHITE}$WORKDIR/src/$1 is not official repo, please rename or remove it.${NC}" && exit 1
+    fi
+  else
+    cd "$WORKDIR"
+    git -C src clone --recurse-submodules $2 $1 || exit 1
+  fi
+}
+
+check_and_clone "Vulkan-Loader" "https://github.com/KhronosGroup/Vulkan-Loader.git"
+check_and_clone "Vulkan-Headers" "https://github.com/KhronosGroup/Vulkan-Headers.git"
+$WORKDIR/build-vulkan "$prefix"
+
+check_and_clone "MoltenVK" "https://github.com/KhronosGroup/MoltenVK.git"
+$WORKDIR/build-moltenvk "$prefix"
+
+check_and_clone "libplacebo" "https://code.videolan.org/videolan/libplacebo.git"
+$WORKDIR/build-libplacebo "$prefix"
+
+check_and_clone "dav1d" "https://code.videolan.org/videolan/dav1d.git"
+$WORKDIR/build-dav1d "$prefix"
+
+check_and_clone "freetype" "https://gitlab.freedesktop.org/freetype/freetype.git"
+check_and_clone "harfbuzz" "https://github.com/harfbuzz/harfbuzz.git"
+$WORKDIR/build-freetype --prefix="$prefix" -Dharfbuzz=disabled
+$WORKDIR/build-harfbuzz "$prefix"
+$WORKDIR/build-freetype --prefix="$prefix"
+
+check_and_clone "libass" "https://github.com/libass/libass.git"
+$WORKDIR/build-libass "$prefix"
+
+check_and_clone "ffmpeg" "https://git.ffmpeg.org/ffmpeg.git"
+$WORKDIR/build-ffmpeg "$prefix"
+
+check_and_clone "mpv" "https://github.com/mpv-player/mpv.git"
+$WORKDIR/build-mpv "$prefix" "$with_bundle"

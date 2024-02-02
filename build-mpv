@@ -1,28 +1,35 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # mpv
 # https://github.com/mpv-player/mpv.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="mpv"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
+with_bundle="$2"
 srcdir="src/mpv"
-builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+builddir="$srcdir/build"
 
-import_local_pkg dav1d
-import_local_pkg ffmpeg
-import_local_pkg freetype
-import_local_pkg harfbuzz
-import_local_pkg libass
-import_local_pkg libplacebo
-import_local_pkg vulkan
+import_local_pkg $pkgdir
 
 import_homebrew_pkg libarchive
 
 rm -rf "${builddir}"
+sed -i -e 's/UNKNOWN/1/g' "$srcdir/VERSION"
 
 meson setup "${builddir}" "${srcdir}" \
   --prefix="${pkgdir}" \
@@ -32,14 +39,21 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto_mode=thin \
   -Dlua=luajit \
   -Dmacos-touchbar=disabled \
-  "$@"
+  # "$@"
 
-meson compile -C "${builddir}"
+meson compile -j$(sysctl -n hw.physicalcpu) -C "${builddir}"
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 meson install -C "${builddir}" --tags runtime,devel
 
-rm -rf "${builddir}"
+if [ "$with_bundle" -eq 1 ]; then
+  cd $srcdir
+  ./TOOLS/osxbundle.py -s build/mpv
+fi
 
+# rm -rf "${builddir}"
+cd "$(dirname "$0")"
+git -C "$srcdir" restore VERSION
+git -C "$srcdir" clean -f VERSION-e
 # vi:set ts=2 sw=2 et:

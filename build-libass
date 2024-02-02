@@ -1,18 +1,28 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # libass
 # https://github.com/libass/libass.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="libass"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/libass"
 
-import_local_pkg freetype
-import_local_pkg harfbuzz
+import_local_pkg $pkgdir
 
 export CFLAGS="${CFLAGS} -O3 -flto=thin"
 
@@ -29,11 +39,11 @@ cd "${srcdir}"
   --enable-libunibreak \
   --enable-asm \
   --disable-fontconfig \
-  "$@"
+  # "$@"
 
-make -j4
+make -j$(sysctl -n hw.physicalcpu)
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 make install
 

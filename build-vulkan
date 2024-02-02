@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # Vulkan Headers
 # https://github.com/KhronosGroup/Vulkan-Headers.git
@@ -6,21 +6,32 @@
 # Vulkan Loader
 # https://github.com/KhronosGroup/Vulkan-Loader.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="vulkan"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 headerssrcdir="src/Vulkan-Headers"
 loadersrcdir="src/Vulkan-Loader"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 icddatadirs=(
-  "/opt/local/moltenvk/share"
+  "$1/share"
   "/usr/local/share"
 )
 
-rm -rf "${builddir}" "${pkgdir}"
+rm -rf "${builddir}" # "${pkgdir}"
 
 cmake \
   -B "${builddir}" \
@@ -42,7 +53,7 @@ cmake \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DVULKAN_HEADERS_INSTALL_DIR="${pkgdir}" \
   -DFALLBACK_DATA_DIRS="$( IFS=:; echo "${icddatadirs[*]}" )" \
-  "$@"
+  # "$@"
 
 cmake --build "${builddir}"
 cmake --install "${builddir}"

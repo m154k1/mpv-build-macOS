@@ -1,13 +1,24 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # dav1d
 # https://code.videolan.org/videolan/dav1d.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="dav1d"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/dav1d"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
@@ -21,11 +32,11 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto_mode=thin \
   -Denable_tools=false \
   -Denable_tests=false \
-  "$@"
+  # "$@"
 
 meson compile -C "${builddir}"
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 meson install -C "${builddir}"
 

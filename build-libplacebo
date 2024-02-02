@@ -1,44 +1,60 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # libplacebo
 # https://code.videolan.org/videolan/libplacebo.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="libplacebo"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/libplacebo"
-builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+builddir="${TMPDIR:-/tmp}/build.$pkgname"
 
-import_local_pkg vulkan
+import_local_pkg $pkgdir
+echo $PKG_CONFIG_PATH
+echo $CPPFLAGS
+echo $LDFLAGS
+# import_homebrew_pkg glslang
+# import_homebrew_pkg spirv-tools
 
 rm -rf "${builddir}"
 
-meson setup "${builddir}" "${srcdir}" \
-  --prefix="${pkgdir}" \
+meson setup "$builddir" "$srcdir" \
+  --prefix="$pkgdir" \
   -Dwrap_mode=nodownload \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dvulkan-registry="/opt/local/vulkan/share/vulkan/registry/vk.xml" \
+  -Dvulkan-registry="$pkgdir/share/vulkan/registry/vk.xml" \
   -Dvulkan=enabled \
   -Dshaderc=enabled \
   -Dlcms=enabled \
   -Dxxhash=enabled \
-  -Dopengl=disabled \
-  -Dd3d11=disabled \
+  -Dopengl=enabled \
   -Dglslang=disabled \
+  -Dd3d11=disabled \
   -Ddemos=false \
-  "$@"
+  # "$@"
 
-meson compile -C "${builddir}"
+meson compile -C "$builddir"
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
-meson install -C "${builddir}"
+meson install -C "$builddir"
 
-rm -rf "${builddir}"
+rm -rf "$builddir"
 
 # vi:set ts=2 sw=2 et:

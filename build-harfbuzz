@@ -1,19 +1,29 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # HarfBuzz
 # https://github.com/harfbuzz/harfbuzz.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="harfbuzz"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/harfbuzz"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
-import_local_pkg freetype
-import_local_pkg harfbuzz
+import_local_pkg $pkgdir
 
 rm -rf "${builddir}"
 
@@ -34,11 +44,11 @@ meson setup "${builddir}" "${srcdir}" \
   -Dintrospection=disabled \
   -Ddocs=disabled \
   -Dutilities=disabled \
-  "$@"
+  # "$@"
 
 meson compile -C "${builddir}"
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 meson install -C "${builddir}"
 

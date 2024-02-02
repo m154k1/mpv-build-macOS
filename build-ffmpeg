@@ -1,34 +1,39 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # FFmpeg
 # https://git.ffmpeg.org/ffmpeg.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 source utils/pkg-import
 
 pkgname="ffmpeg"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/ffmpeg"
 
-import_local_pkg dav1d
-import_local_pkg freetype
-import_local_pkg harfbuzz
-import_local_pkg libass
-import_local_pkg libplacebo
-import_local_pkg vulkan
+import_local_pkg $pkgdir
 
 cd "${srcdir}"
 
 ./configure \
   --prefix="${pkgdir}" \
   --pkg-config="${PKG_CONFIG}" \
-  --arch="$(uname -m)" \
+  --arch="$(arch)" \
   --cpu=host \
   --cc=clang \
-  --extra-cflags="-I$(brew --prefix)/include" \
-  --extra-ldflags="-L$(brew --prefix)/lib -Wl,-ld_classic" \
   --enable-shared \
+  --enable-ffplay \
   --enable-lto \
   --enable-gpl \
   --enable-version3 \
@@ -59,13 +64,13 @@ cd "${srcdir}"
   --disable-sdl2 \
   --disable-libxcb \
   --disable-xlib \
-  "$@"
+  # "$@"
 
-make -j4
+make -j$(sysctl -n hw.physicalcpu)
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 make install
-rm -rf "${pkgdir}"/share
+# rm -rf "${pkgdir}"/share
 
 # vi:set ts=2 sw=2 et:

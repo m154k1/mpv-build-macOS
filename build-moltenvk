@@ -1,28 +1,39 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env zsh -e
 #
 # MoltenVK
 # https://github.com/KhronosGroup/MoltenVK.git
 #
+
+set -e
+
+PS4='+ ${BASH_SOURCE}:${LINENO}: '
+
+error_report() {
+    echo "Error on line $1"
+}
+
+trap 'error_report $LINENO' ERR
+
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="moltenvk"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="$1"
 srcdir="src/MoltenVK"
 builddir="Package/Latest/MoltenVK/dylib/macOS"
 
-cd "${srcdir}"
+cd "$srcdir"
 
 ./fetchDependencies \
   --macos \
-  --v-headers-root /opt/local/vulkan
+  --v-headers-root $pkgdir
 
 make macos MVK_CONFIG_LOG_LEVEL=2
 
 sed -i '' "s|./libMoltenVK|${pkgdir}/lib/libMoltenVK|g" "${builddir}"/MoltenVK_icd.json
 cat "${builddir}"/MoltenVK_icd.json
 
-rm -rf "${pkgdir}"
+# rm -rf "${pkgdir}"
 
 mkdir -p "${pkgdir}"/lib "${pkgdir}"/share/vulkan/icd.d
 install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
