@@ -12,6 +12,11 @@ pkgdir="/opt/local/${pkgname}"
 srcdir="src/mpv"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+if [ "$1" == "--bundle" ]; then
+  bundle=1
+  shift
+fi
+
 import_local_pkg dav1d
 import_local_pkg ffmpeg
 import_local_pkg freetype
@@ -35,6 +40,14 @@ meson setup "${builddir}" "${srcdir}" \
   "$@"
 
 meson compile -C "${builddir}"
+
+if [ -n "${bundle}" ]; then
+  mkdir -p ~/.local/share/vulkan
+  ln -sfn /opt/local/moltenvk/share/vulkan/icd.d ~/.local/share/vulkan/icd.d
+
+  meson compile -C "${builddir}" macos-bundle
+  tar -czvf mpv.tar.gz -C "${builddir}" mpv.app
+fi
 
 rm -rf "${pkgdir}"
 

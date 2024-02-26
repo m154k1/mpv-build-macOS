@@ -91,14 +91,20 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
    ```sh
    git -C src clone "https://github.com/mpv-player/mpv.git"
+
+   # This will build and install mpv as CLI program
    ./build-mpv
+
+   # Alternatively, you can make an app bundle by adding '--bundle' option
+   # This will create mpv.tar.gz with mpv.app
+   ./build-mpv --bundle
    ```
 
 9. Add binaries to your `$PATH`:  
 
    ```sh
    cd ~/.local/bin
-   ln -s /opt/local/mpv/bin/mpv
+   ln -s /opt/local/mpv/bin/mpv # or /Applications/mpv.app/Contents/MacOS/mpv
    ln -s /opt/local/ffmpeg/bin/ffmpeg
    ln -s /opt/local/ffmpeg/bin/ffprobe
    ```
