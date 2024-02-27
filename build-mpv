@@ -36,6 +36,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto=true \
   -Db_lto_mode=thin \
   -Dlua=luajit \
+  -Dgl=disabled \
   -Dmacos-touchbar=disabled \
   "$@"
 
