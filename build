@@ -55,6 +55,11 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
+rm -rf "$prefix/include"
+rm -rf "$prefix/lib"
+rm -rf "$prefix/loader"
+rm -rf "$prefix/share"
+
 # Install homebrew if not found
 if ! command -v brew &> /dev/null; then
   echo -n "${GRAY}brew is currently not found on your system. installing ... ${NC}"
@@ -89,12 +94,13 @@ for dep in "${depsArr[@]}"; do
   fi
 done
 
-sudo chown -R $(whoami):admin "$prefix"
+sudo chown -R $(whoami):staff "$prefix"
 
 check_and_clone() {
   if [ -d "$WORKDIR/src/$1" ]; then
     cd "$WORKDIR/src/$1"
     if [ "$(git config --get remote.origin.url)" = "$2" ]; then
+      git clean -fdx
       git pull --recurse-submodules
     else
       echo "${WHITE}$WORKDIR/src/$1 is not official repo, please rename or remove it.${NC}" && exit 1
