@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh -e
+#!/usr/bin/env bash -e
 #
 # FreeType
 # https://gitlab.freedesktop.org/freetype/freetype.git

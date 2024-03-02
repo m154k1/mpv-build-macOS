@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh -e
+#!/usr/bin/env bash -e
 #
 # mpv
 # https://github.com/mpv-player/mpv.git
@@ -50,6 +50,10 @@ meson install -C "${builddir}" --tags runtime,devel
 if [ "$with_bundle" -eq 1 ]; then
   cd $srcdir
   ./TOOLS/osxbundle.py -s build/mpv
+  if [ -d "/Applications/mpv.app" ]; then
+    rm -rf /Applications/mpv.app
+  fi
+  mv build/mpv.app /Applications
 fi
 
 # rm -rf "${builddir}"
