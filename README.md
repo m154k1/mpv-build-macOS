@@ -22,7 +22,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    cd mpv-build-macOS
    ```
 
-3. run `build`. you can specify path which you want to install ffmpeg and mpv to with params `--prefix /path/you/want` and a flag to build `mpv.app`
+3. run `build`. you can specify path which you want to install ffmpeg and mpv to with params `--prefix /path/you/want` and a flag to build bundle, `mpv.app`
 
    ```sh
       ./build
@@ -41,7 +41,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
       ./build --prefix ~/.local --with-bundle
    ```
 
-4. Add binaries to your `$PATH`:
+4. Add binaries to your `$PATH`
 
 ### Configuration
 
