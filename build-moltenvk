@@ -9,7 +9,7 @@ set -a; source build.env; set +a
 pkgname="moltenvk"
 pkgdir="/opt/local/${pkgname}"
 srcdir="src/MoltenVK"
-builddir="Package/Latest/MoltenVK/dylib/macOS"
+builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
 
 cd "${srcdir}"
 
