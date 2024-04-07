@@ -13,9 +13,7 @@ builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
 
 cd "${srcdir}"
 
-./fetchDependencies \
-  --macos \
-  --v-headers-root /opt/local/vulkan
+./fetchDependencies --macos
 
 make macos MVK_CONFIG_LOG_LEVEL=2
 
