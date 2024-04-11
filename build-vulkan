@@ -10,13 +10,13 @@ cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="vulkan"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 headerssrcdir="src/Vulkan-Headers"
 loadersrcdir="src/Vulkan-Loader"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 icddatadirs=(
-  "/opt/local/moltenvk/share"
+  "${PREFIX}/share"
   "/usr/local/share"
 )
 
@@ -46,6 +46,7 @@ cmake \
 
 cmake --build "${builddir}"
 cmake --install "${builddir}"
+stow -Rd "${STOWDIR}" --ignore=loader "${pkgname}"
 
 rm -rf "${builddir}"
 

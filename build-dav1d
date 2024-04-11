@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 set -a; source build.env; set +a
 
 pkgname="dav1d"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/dav1d"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
@@ -28,6 +28,7 @@ meson compile -C "${builddir}"
 rm -rf "${pkgdir}"
 
 meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
 

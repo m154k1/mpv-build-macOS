@@ -5,14 +5,11 @@
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
 pkgname="libplacebo"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libplacebo"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
-
-import_local_pkg vulkan
 
 rm -rf "${builddir}"
 
@@ -22,7 +19,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dvulkan-registry="/opt/local/vulkan/share/vulkan/registry/vk.xml" \
+  -Dvulkan-registry="${PREFIX}/share/vulkan/registry/vk.xml" \
   -Dvulkan=enabled \
   -Dshaderc=enabled \
   -Dlcms=enabled \
@@ -38,6 +35,7 @@ meson compile -C "${builddir}"
 rm -rf "${pkgdir}"
 
 meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
 

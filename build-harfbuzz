@@ -5,15 +5,11 @@
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
 pkgname="harfbuzz"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/harfbuzz"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
-
-import_local_pkg freetype
-import_local_pkg harfbuzz
 
 rm -rf "${builddir}"
 
@@ -41,6 +37,7 @@ meson compile -C "${builddir}"
 rm -rf "${pkgdir}"
 
 meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
 

@@ -5,18 +5,10 @@
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
 pkgname="ffmpeg"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/ffmpeg"
-
-import_local_pkg dav1d
-import_local_pkg freetype
-import_local_pkg harfbuzz
-import_local_pkg libass
-import_local_pkg libplacebo
-import_local_pkg vulkan
 
 cd "${srcdir}"
 
@@ -73,5 +65,6 @@ rm -rf "${pkgdir}"
 
 make install
 rm -rf "${pkgdir}"/share
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 # vi:set ts=2 sw=2 et:

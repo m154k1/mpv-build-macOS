@@ -5,14 +5,10 @@
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
 pkgname="libass"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libass"
-
-import_local_pkg freetype
-import_local_pkg harfbuzz
 
 export CFLAGS="${CFLAGS} -O3 -flto=thin"
 
@@ -36,5 +32,6 @@ make -j4
 rm -rf "${pkgdir}"
 
 make install
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 # vi:set ts=2 sw=2 et:

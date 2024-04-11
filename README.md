@@ -31,7 +31,10 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ```sh
    sudo mkdir /opt/local
    sudo chown $USER:admin /opt/local
+   mkdir /opt/local/stow
    ```
+
+   If you want to use a different directory, export `$PREFIX` environment variable.
 
 ### Build and install
 1. [**Vulkan Loader**](https://github.com/KhronosGroup/Vulkan-Loader) & [**Vulkan Headers**](https://github.com/KhronosGroup/Vulkan-Headers)  
@@ -100,14 +103,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-mpv --bundle
    ```
 
-9. Add binaries to your `$PATH`:  
-
-   ```sh
-   cd ~/.local/bin
-   ln -s /opt/local/mpv/bin/mpv # or /Applications/mpv.app/Contents/MacOS/mpv
-   ln -s /opt/local/ffmpeg/bin/ffmpeg
-   ln -s /opt/local/ffmpeg/bin/ffprobe
-   ```
+9. Add `/opt/local/bin` to your `$PATH`.
 
 ### Configuration
 
@@ -135,7 +131,6 @@ graph TD;
    mpv-->vulkan;
    mpv-->libass;
    libplacebo-->vulkan;
-   moltenvk-->vulkan;
    vulkan-->moltenvk;
    ffmpeg-->libplacebo;
    ffmpeg-->vulkan;

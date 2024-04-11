@@ -5,27 +5,18 @@
 #
 cd "$(dirname "$0")"
 set -a; source build.env; set +a
-source utils/pkg-import
 
 pkgname="mpv"
-pkgdir="/opt/local/${pkgname}"
+pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/mpv"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+PKG_CONFIG_PATH+=":$(brew --prefix libarchive)/lib/pkgconfig"
 
 if [ "$1" == "--bundle" ]; then
   bundle=1
   shift
 fi
-
-import_local_pkg dav1d
-import_local_pkg ffmpeg
-import_local_pkg freetype
-import_local_pkg harfbuzz
-import_local_pkg libass
-import_local_pkg libplacebo
-import_local_pkg vulkan
-
-import_homebrew_pkg libarchive
 
 rm -rf "${builddir}"
 
@@ -44,7 +35,7 @@ meson compile -C "${builddir}"
 
 if [ -n "${bundle}" ]; then
   mkdir -p ~/.local/share/vulkan
-  ln -sfn /opt/local/moltenvk/share/vulkan/icd.d ~/.local/share/vulkan/icd.d
+  ln -sfn "${PREFIX}"/share/vulkan/icd.d ~/.local/share/vulkan/icd.d
 
   meson compile -C "${builddir}" macos-bundle
   tar -czvf mpv.tar.gz -C "${builddir}" mpv.app
@@ -53,6 +44,7 @@ fi
 rm -rf "${pkgdir}"
 
 meson install -C "${builddir}" --tags runtime,devel
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
 
