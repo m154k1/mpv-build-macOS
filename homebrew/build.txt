@@ -1,6 +1,4 @@
-automake
 cmake
-libtool
 meson
 pkgconf
 stow

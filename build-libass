@@ -9,29 +9,31 @@ set -a; source build.env; set +a
 pkgname="libass"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libass"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
-export CFLAGS="${CFLAGS} -O3 -flto=thin"
+rm -rf "${builddir}"
 
-cd "${srcdir}"
-
-./autogen.sh
-
-./configure \
+meson setup "${builddir}" "${srcdir}" \
   --prefix="${pkgdir}" \
-  --enable-shared \
-  --disable-static \
-  --disable-dependency-tracking \
-  --enable-coretext \
-  --enable-libunibreak \
-  --enable-asm \
-  --disable-fontconfig \
+  -Ddefault_library=shared \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dcoretext=enabled \
+  -Dasm=enabled \
+  -Dlibunibreak=enabled \
+  -Dfontconfig=disabled \
+  -Ddirectwrite=disabled \
   "$@"
 
-make -j4
+meson compile -C "${builddir}"
 
 rm -rf "${pkgdir}"
 
-make install
+meson install -C "${builddir}"
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
 
 # vi:set ts=2 sw=2 et:
