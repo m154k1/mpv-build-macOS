@@ -105,13 +105,15 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
 9. Add `/opt/local/bin` to your `$PATH`.
 
-### Configuration
+### Recommended settings
 
 ```cfg
 # ~/.config/mpv/mpv.conf
 
 vo=gpu-next
-gpu-context=macvk
+hwdec=yes
+dither-depth=no
+macos-render-timer=feedback
 ```
 
 ### Environment variables
