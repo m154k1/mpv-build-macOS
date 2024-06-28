@@ -1,0 +1,38 @@
+#!/usr/bin/env bash -e
+#
+# SVT-AV1
+# https://gitlab.com/AOMediaCodec/SVT-AV1.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="svt-av1"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/SVT-AV1"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+cmake \
+  -B "${builddir}" \
+  -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_LIBDIR=lib \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DNATIVE=ON \
+  -DSVT_AV1_LTO=ON \
+  -DBUILD_APPS=OFF \
+  -DBUILD_TESTING=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

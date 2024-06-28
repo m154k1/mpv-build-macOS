@@ -9,7 +9,6 @@ luajit
 openssl
 opus
 shaderc
-svt-av1
 uchardet
 x264
 x265
