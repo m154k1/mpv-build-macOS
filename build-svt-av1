@@ -13,11 +13,8 @@ builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 rm -rf "${builddir}"
 
-cmake \
-  -B "${builddir}" \
-  -S "${srcdir}" \
+cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
-  -DCMAKE_INSTALL_LIBDIR=lib \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DNATIVE=ON \

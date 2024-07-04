@@ -22,9 +22,7 @@ icddatadirs=(
 
 rm -rf "${builddir}" "${pkgdir}"
 
-cmake \
-  -B "${builddir}" \
-  -S "${headerssrcdir}" \
+cmake -B "${builddir}" -S "${headerssrcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
   -DCMAKE_BUILD_TYPE=Release
 
@@ -32,11 +30,8 @@ cmake --install "${builddir}"
 
 rm -rf "${builddir}"
 
-cmake \
-  -B "${builddir}" \
-  -S "${loadersrcdir}" \
+cmake -B "${builddir}" -S "${loadersrcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
-  -DCMAKE_INSTALL_LIBDIR=lib \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
