@@ -73,7 +73,14 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-svt-av1
    ```
 
-6. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
+6. [**x264**](https://code.videolan.org/videolan/x264)  
+
+   ```sh
+   git -C src clone "https://code.videolan.org/videolan/x264.git"
+   ./build-x264
+   ```
+
+7. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
 
    ```sh
    git -C src clone "https://gitlab.freedesktop.org/freetype/freetype.git"
@@ -83,21 +90,21 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-freetype
    ```
 
-7. [**libass**](https://github.com/libass/libass)  
+8. [**libass**](https://github.com/libass/libass)  
 
    ```sh
    git -C src clone "https://github.com/libass/libass.git"
    ./build-libass
    ```
 
-8. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+9. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
    ```sh
    git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
    ./build-ffmpeg
    ```
 
-9. [**mpv**](https://github.com/mpv-player/mpv)  
+10. [**mpv**](https://github.com/mpv-player/mpv)  
 
    ```sh
    git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -110,7 +117,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-mpv --bundle
    ```
 
-10. Add `/opt/local/bin` to your `$PATH`.
+11. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -145,6 +152,7 @@ graph TD;
    ffmpeg-->vulkan;
    ffmpeg-->dav1d;
    ffmpeg-->svt-av1;
+   ffmpeg-->x264;
    ffmpeg-->libass;
    ffmpeg-->freetype;
    ffmpeg-->harfbuzz;
