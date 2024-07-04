@@ -10,6 +10,5 @@ openssl
 opus
 shaderc
 uchardet
-x265
 xxhash
 zimg

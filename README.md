@@ -80,7 +80,14 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-x264
    ```
 
-7. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
+7. [**x265**](https://bitbucket.org/multicoreware/x265_git/src/master/)  
+
+   ```sh
+   git -C src clone "https://bitbucket.org/multicoreware/x265_git.git"
+   ./build-x265
+   ```
+
+8. [**FreeType**](https://gitlab.freedesktop.org/freetype/freetype) & [**HarfBuzz**](https://github.com/harfbuzz/harfbuzz)  
 
    ```sh
    git -C src clone "https://gitlab.freedesktop.org/freetype/freetype.git"
@@ -90,21 +97,21 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-freetype
    ```
 
-8. [**libass**](https://github.com/libass/libass)  
+9. [**libass**](https://github.com/libass/libass)  
 
    ```sh
    git -C src clone "https://github.com/libass/libass.git"
    ./build-libass
    ```
 
-9. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+10. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
    ```sh
    git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
    ./build-ffmpeg
    ```
 
-10. [**mpv**](https://github.com/mpv-player/mpv)  
+11. [**mpv**](https://github.com/mpv-player/mpv)  
 
    ```sh
    git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -117,7 +124,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-mpv --bundle
    ```
 
-11. Add `/opt/local/bin` to your `$PATH`.
+12. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -153,6 +160,7 @@ graph TD;
    ffmpeg-->dav1d;
    ffmpeg-->svt-av1;
    ffmpeg-->x264;
+   ffmpeg-->x265;
    ffmpeg-->libass;
    ffmpeg-->freetype;
    ffmpeg-->harfbuzz;

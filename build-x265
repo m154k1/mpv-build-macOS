@@ -1,0 +1,68 @@
+#!/usr/bin/env bash -e
+#
+# x265
+# https://bitbucket.org/multicoreware/x265_git.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="x265"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/x265_git/source"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"{,-10,-12}
+
+cmake -B "${builddir}"-10 -S "${srcdir}" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DNATIVE_BUILD=ON \
+  -DHIGH_BIT_DEPTH=ON \
+  -DEXPORT_C_API=OFF \
+  -DENABLE_CLI=OFF \
+  -DENABLE_SHARED=OFF \
+  -Wno-dev
+
+cmake --build "${builddir}"-10
+
+cmake -B "${builddir}"-12 -S "${srcdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DNATIVE_BUILD=ON \
+  -DHIGH_BIT_DEPTH=ON \
+  -DMAIN12=ON \
+  -DEXPORT_C_API=OFF \
+  -DENABLE_CLI=OFF \
+  -DENABLE_SHARED=OFF \
+  -Wno-dev
+
+cmake --build "${builddir}"-12
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DENABLE_SHARED=ON \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DNATIVE_BUILD=ON \
+  -DEXTRA_LIB='x265_main10.a;x265_main12.a' \
+  -DEXTRA_LINK_FLAGS='-L.' \
+  -DLINKED_10BIT=ON \
+  -DLINKED_12BIT=ON \
+  -DENABLE_CLI=OFF \
+  -Wno-dev
+
+ln -s "${builddir}"-10/libx265.a "${builddir}"/libx265_main10.a
+ln -s "${builddir}"-12/libx265.a "${builddir}"/libx265_main12.a
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -f "${pkgdir}"/lib/*.a
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"{,-10,-12}
+
+# vi:set ts=2 sw=2 et:
