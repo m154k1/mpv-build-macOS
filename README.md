@@ -106,23 +106,23 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
 10. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
-   ```sh
-   git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
-   ./build-ffmpeg
-   ```
+    ```sh
+    git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
+    ./build-ffmpeg
+    ```
 
 11. [**mpv**](https://github.com/mpv-player/mpv)  
 
-   ```sh
-   git -C src clone "https://github.com/mpv-player/mpv.git"
+    ```sh
+    git -C src clone "https://github.com/mpv-player/mpv.git"
 
-   # This will build and install mpv as CLI program
-   ./build-mpv
+    # This will build and install mpv as CLI program
+    ./build-mpv
 
-   # Alternatively, you can make an app bundle by adding '--bundle' option
-   # This will create mpv.tar.gz with mpv.app
-   ./build-mpv --bundle
-   ```
+    # Alternatively, you can make an app bundle by adding '--bundle' option
+    # This will create mpv.tar.gz with mpv.app
+    ./build-mpv --bundle
+    ```
 
 12. Add `/opt/local/bin` to your `$PATH`.
 
