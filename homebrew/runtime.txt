@@ -1,9 +1,7 @@
 fribidi
 jpeg-xl
-lame
 libarchive
 libunibreak
-libvorbis
 libvpx
 luajit
 openssl
