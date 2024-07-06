@@ -1,6 +1,5 @@
 fribidi
 jpeg-xl
-libarchive
 libunibreak
 libvpx
 luajit

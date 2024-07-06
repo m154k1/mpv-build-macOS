@@ -104,14 +104,21 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-libass
    ```
 
-10. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+10. [**libarchive**](https://github.com/libarchive/libarchive)  
+
+    ```sh
+    git -C src clone "https://github.com/libarchive/libarchive.git"
+    ./build-libarchive
+    ```
+
+11. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
     ```sh
     git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
     ./build-ffmpeg
     ```
 
-11. [**mpv**](https://github.com/mpv-player/mpv)  
+12. [**mpv**](https://github.com/mpv-player/mpv)  
 
     ```sh
     git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -124,7 +131,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
     ./build-mpv --bundle
     ```
 
-12. Add `/opt/local/bin` to your `$PATH`.
+13. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -153,6 +160,7 @@ graph TD;
    mpv-->libplacebo;
    mpv-->vulkan;
    mpv-->libass;
+   mpv-->libarchive;
    libplacebo-->vulkan;
    vulkan-->moltenvk;
    ffmpeg-->libplacebo;
