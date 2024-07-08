@@ -1,0 +1,37 @@
+#!/usr/bin/env bash -e
+#
+# GNU FriBidi
+# https://github.com/fribidi/fribidi.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="fribidi"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/fribidi"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dbin=false \
+  -Ddeprecated=false \
+  -Ddocs=false \
+  -Dtests=false \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

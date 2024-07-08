@@ -97,35 +97,42 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-freetype
    ```
 
-9. [**libass**](https://github.com/libass/libass)  
+9. [**GNU FriBidi**](https://github.com/fribidi/fribidi)  
 
    ```sh
-   git -C src clone "https://github.com/libass/libass.git"
-   ./build-libass
+   git -C src clone "https://github.com/fribidi/fribidi.git"
+   ./build-fribidi
    ```
 
-10. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+10. [**libass**](https://github.com/libass/libass)  
+
+    ```sh
+    git -C src clone "https://github.com/libass/libass.git"
+    ./build-libass
+    ```
+
+11. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
     ```sh
     git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
     ./build-ffmpeg
     ```
 
-11. [**libarchive**](https://github.com/libarchive/libarchive)  
+12. [**libarchive**](https://github.com/libarchive/libarchive)  
 
     ```sh
     git -C src clone "https://github.com/libarchive/libarchive.git"
     ./build-libarchive
     ```
 
-12. [**uchardet**](https://gitlab.freedesktop.org/uchardet/uchardet)  
+13. [**uchardet**](https://gitlab.freedesktop.org/uchardet/uchardet)  
 
     ```sh
     git -C src clone "https://gitlab.freedesktop.org/uchardet/uchardet.git"
     ./build-uchardet
     ```
 
-13. [**mpv**](https://github.com/mpv-player/mpv)  
+14. [**mpv**](https://github.com/mpv-player/mpv)  
 
     ```sh
     git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -138,7 +145,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
     ./build-mpv --bundle
     ```
 
-14. Add `/opt/local/bin` to your `$PATH`.
+15. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -180,8 +187,10 @@ graph TD;
    ffmpeg-->libass;
    ffmpeg-->freetype;
    ffmpeg-->harfbuzz;
+   ffmpeg-->fribidi;
    libass-->freetype;
    libass-->harfbuzz;
+   libass-->fribidi;
    freetype-->harfbuzz;
    harfbuzz-->freetype;
 ```
