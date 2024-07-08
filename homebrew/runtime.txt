@@ -6,6 +6,5 @@ luajit
 openssl
 opus
 shaderc
-uchardet
 xxhash
 zimg

@@ -104,21 +104,28 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-libass
    ```
 
-10. [**libarchive**](https://github.com/libarchive/libarchive)  
-
-    ```sh
-    git -C src clone "https://github.com/libarchive/libarchive.git"
-    ./build-libarchive
-    ```
-
-11. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+10. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
     ```sh
     git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
     ./build-ffmpeg
     ```
 
-12. [**mpv**](https://github.com/mpv-player/mpv)  
+11. [**libarchive**](https://github.com/libarchive/libarchive)  
+
+    ```sh
+    git -C src clone "https://github.com/libarchive/libarchive.git"
+    ./build-libarchive
+    ```
+
+12. [**uchardet**](https://gitlab.freedesktop.org/uchardet/uchardet)  
+
+    ```sh
+    git -C src clone "https://gitlab.freedesktop.org/uchardet/uchardet.git"
+    ./build-uchardet
+    ```
+
+13. [**mpv**](https://github.com/mpv-player/mpv)  
 
     ```sh
     git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -131,7 +138,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
     ./build-mpv --bundle
     ```
 
-13. Add `/opt/local/bin` to your `$PATH`.
+14. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -161,6 +168,7 @@ graph TD;
    mpv-->vulkan;
    mpv-->libass;
    mpv-->libarchive;
+   mpv-->uchardet;
    libplacebo-->vulkan;
    vulkan-->moltenvk;
    ffmpeg-->libplacebo;
