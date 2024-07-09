@@ -1,0 +1,48 @@
+#!/usr/bin/env bash -e
+#
+# libvpx
+# https://chromium.googlesource.com/webm/libvpx
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libvpx"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libvpx"
+
+cd "${srcdir}"
+
+./configure \
+  --prefix="${pkgdir}" \
+  --enable-shared \
+  --enable-pic \
+  --enable-vp9 \
+  --enable-vp9-highbitdepth \
+  --enable-vp9-postproc \
+  --enable-vp9-temporal-denoising \
+  --disable-dependency-tracking \
+  --disable-static \
+  --disable-debug \
+  --disable-docs \
+  --disable-examples \
+  --disable-tools \
+  --disable-unit-tests \
+  --disable-vp8-encoder \
+  "$@"
+
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+
+for lib in "${pkgdir}"/lib/*.dylib; do
+  if [[ ! -L "${lib}" ]]; then
+    echo "install_name: '$(otool -D "${lib}" | sed -n 2p)' --> '${lib}'"
+    install_name_tool -id "${lib}" "${lib}"
+  fi
+done
+
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+# vi:set ts=2 sw=2 et:

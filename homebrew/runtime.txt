@@ -1,6 +1,5 @@
 jpeg-xl
 libunibreak
-libvpx
 luajit
 openssl
 opus
