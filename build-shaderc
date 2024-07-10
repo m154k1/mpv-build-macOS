@@ -15,6 +15,7 @@ rm -rf "${builddir}"
 
 cd "${srcdir}"
 sed -i '' 's/${SHADERC_SKIP_INSTALL}/ON/g' third_party/CMakeLists.txt
+sed -i '' '/^.*GLSLANG_ENABLE_INSTALL.*$/d' third_party/CMakeLists.txt
 ./utils/git-sync-deps
 cd -
 

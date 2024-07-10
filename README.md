@@ -55,8 +55,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 3. [**shaderc**](https://github.com/google/shaderc)  
 
    ```sh
-   curl -sL "https://github.com/google/shaderc/archive/refs/tags/v2024.0.tar.gz" | tar -xvC src -
-   mv src/shaderc-2024.0 src/shaderc
+   git -C src clone "https://github.com/google/shaderc.git"
    ./build-shaderc
    ```
 
