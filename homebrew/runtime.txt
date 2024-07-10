@@ -2,7 +2,6 @@ jpeg-xl
 libunibreak
 luajit
 openssl
-opus
 shaderc
 xxhash
 zimg
