@@ -2,5 +2,4 @@ jpeg-xl
 libunibreak
 luajit
 openssl
-shaderc
 xxhash

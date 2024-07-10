@@ -1,0 +1,40 @@
+#!/usr/bin/env bash -e
+#
+# shaderc
+# https://github.com/google/shaderc.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="shaderc"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/shaderc"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+cd "${srcdir}"
+sed -i '' 's/${SHADERC_SKIP_INSTALL}/ON/g' third_party/CMakeLists.txt
+./utils/git-sync-deps
+cd -
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DSHADERC_SKIP_TESTS=ON \
+  -DSHADERC_SKIP_EXAMPLES=ON \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/bin "${pkgdir}"/lib/*.a "${pkgdir}"/lib/pkgconfig/*{combined,static}.pc
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:
