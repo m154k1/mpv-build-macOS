@@ -37,11 +37,13 @@ cmake -B "${builddir}" -S "${loadersrcdir}" \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DVULKAN_HEADERS_INSTALL_DIR="${pkgdir}" \
   -DFALLBACK_DATA_DIRS="$( IFS=:; echo "${icddatadirs[*]}" )" \
+  -DBUILD_TESTS=OFF \
   "$@"
 
 cmake --build "${builddir}"
 cmake --install "${builddir}"
-stow -Rd "${STOWDIR}" --ignore=loader "${pkgname}"
+rm -rf "${pkgdir}"/loader
+stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
 
