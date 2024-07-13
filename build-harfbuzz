@@ -21,7 +21,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto_mode=thin \
   -Dcoretext=enabled \
   -Dfreetype=enabled \
-  -Dglib=auto \
+  -Dglib=disabled \
   -Dgobject=disabled \
   -Dcairo=disabled \
   -Dchafa=disabled \
