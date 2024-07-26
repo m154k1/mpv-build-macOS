@@ -126,35 +126,43 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
     ./build-fribidi
     ```
 
-13. [**libass**](https://github.com/libass/libass)  
+13. [**libunibreak**](https://github.com/adah1972/libunibreak)  
+
+    ```sh
+    curl -sL "https://github.com/adah1972/libunibreak/releases/download/libunibreak_6_1/libunibreak-6.1.tar.gz" | tar -xvC src -
+    mv src/libunibreak-6.1 src/libunibreak
+    ./build-libunibreak
+    ```
+
+14. [**libass**](https://github.com/libass/libass)  
 
     ```sh
     git -C src clone "https://github.com/libass/libass.git"
     ./build-libass
     ```
 
-14. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
+15. [**FFmpeg**](https://git.ffmpeg.org/ffmpeg.git)  
 
     ```sh
     git -C src clone "https://git.ffmpeg.org/ffmpeg.git"
     ./build-ffmpeg
     ```
 
-15. [**libarchive**](https://github.com/libarchive/libarchive)  
+16. [**libarchive**](https://github.com/libarchive/libarchive)  
 
     ```sh
     git -C src clone "https://github.com/libarchive/libarchive.git"
     ./build-libarchive
     ```
 
-16. [**uchardet**](https://gitlab.freedesktop.org/uchardet/uchardet)  
+17. [**uchardet**](https://gitlab.freedesktop.org/uchardet/uchardet)  
 
     ```sh
     git -C src clone "https://gitlab.freedesktop.org/uchardet/uchardet.git"
     ./build-uchardet
     ```
 
-17. [**mpv**](https://github.com/mpv-player/mpv)  
+18. [**mpv**](https://github.com/mpv-player/mpv)  
 
     ```sh
     git -C src clone "https://github.com/mpv-player/mpv.git"
@@ -167,7 +175,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
     ./build-mpv --bundle
     ```
 
-18. Add `/opt/local/bin` to your `$PATH`.
+19. Add `/opt/local/bin` to your `$PATH`.
 
 ### Recommended settings
 
@@ -217,6 +225,7 @@ graph TD;
    libass-->freetype;
    libass-->harfbuzz;
    libass-->fribidi;
+   libass-->libunibreak;
    freetype-->harfbuzz;
    harfbuzz-->freetype;
 ```

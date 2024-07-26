@@ -1,5 +1,4 @@
 jpeg-xl
-libunibreak
 luajit
 openssl
 xxhash

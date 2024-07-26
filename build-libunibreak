@@ -1,0 +1,24 @@
+#!/usr/bin/env bash -e
+#
+# libunibreak
+# https://github.com/adah1972/libunibreak.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libunibreak"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libunibreak"
+
+cd "${srcdir}"
+
+./configure --prefix="${pkgdir}"
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+rm -f "${pkgdir}"/lib/*{.a,.la}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+# vi:set ts=2 sw=2 et:
