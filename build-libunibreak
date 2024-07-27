@@ -12,13 +12,17 @@ srcdir="src/libunibreak"
 
 cd "${srcdir}"
 
-./configure --prefix="${pkgdir}"
+./configure \
+  --prefix="${pkgdir}" \
+  --enable-shared \
+  --disable-static
+
 make -j4
 
 rm -rf "${pkgdir}"
 
 make install
-rm -f "${pkgdir}"/lib/*{.a,.la}
+rm -f "${pkgdir}"/lib/*.la
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 # vi:set ts=2 sw=2 et:
