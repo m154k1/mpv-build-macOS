@@ -101,7 +101,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
    ./build-libvpx
    ```
 
-10. [**opus**](https://chromium.googlesource.com/webm/libvpx)  
+10. [**opus**](https://www.opus-codec.org)  
 
     ```sh
     curl -sL "https://downloads.xiph.org/releases/opus/opus-1.5.2.tar.gz" | tar -xvC src -
