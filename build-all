@@ -12,6 +12,7 @@ cd "$(dirname "$0")"
 ./build-x265
 ./build-libvpx
 ./build-opus
+./build-libwebp
 ./build-freetype -Dharfbuzz=disabled
 ./build-harfbuzz
 ./build-freetype

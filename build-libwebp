@@ -1,0 +1,43 @@
+#!/usr/bin/env bash -e
+#
+# libwebp
+# https://chromium.googlesource.com/webm/libwebp
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libwebp"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libwebp"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DBUILD_SHARED_LIBS=ON \
+  -DWEBP_BUILD_ANIM_UTILS=OFF \
+  -DWEBP_BUILD_CWEBP=OFF \
+  -DWEBP_BUILD_DWEBP=OFF \
+  -DWEBP_BUILD_GIF2WEBP=OFF \
+  -DWEBP_BUILD_IMG2WEBP=OFF \
+  -DWEBP_BUILD_VWEBP=OFF \
+  -DWEBP_BUILD_WEBPINFO=OFF \
+  -DWEBP_BUILD_WEBPMUX=OFF \
+  -DWEBP_BUILD_EXTRAS=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/share
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

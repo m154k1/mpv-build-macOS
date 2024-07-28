@@ -65,6 +65,12 @@ fetch_libvpx() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_libwebp() {
+  local url="https://chromium.googlesource.com/webm/libwebp"
+  rm -rf src/libwebp
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_luajit() {
   local url="https://github.com/LuaJIT/LuaJIT.git"
   rm -rf src/LuaJIT
@@ -160,6 +166,9 @@ case "$1" in
   "libvpx")
     fetch_libvpx
     ;;
+  "libwebp")
+    fetch_libwebp
+    ;;
   "luajit")
     fetch_luajit
     ;;
@@ -201,6 +210,7 @@ case "$1" in
     fetch_libplacebo
     fetch_libunibreak
     fetch_libvpx
+    fetch_libwebp
     fetch_luajit
     fetch_moltenvk
     fetch_mpv
