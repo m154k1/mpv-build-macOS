@@ -1,0 +1,24 @@
+#!/usr/bin/env bash -e
+#
+# LuaJIT
+# https://github.com/LuaJIT/LuaJIT.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="luajit"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/LuaJIT"
+
+make -C "${srcdir}" -j4 amalg \
+  PREFIX="${pkgdir}" \
+  BUILDMODE=dynamic \
+  CFLAGS="${CFLAGS} -O3 -flto=thin"
+
+rm -rf "${pkgdir}"
+
+make -C "${srcdir}" install PREFIX="${pkgdir}"
+rm -rf "${pkgdir}"/{bin,lib/lua,share}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+# vi:set ts=2 sw=2 et:

@@ -19,6 +19,7 @@ cd "$(dirname "$0")"
 ./build-libunibreak
 ./build-libass
 ./build-ffmpeg
+./build-luajit
 ./build-libarchive
 ./build-uchardet
 ./build-mpv "$@"

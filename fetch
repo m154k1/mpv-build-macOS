@@ -65,6 +65,12 @@ fetch_libvpx() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_luajit() {
+  local url="https://github.com/LuaJIT/LuaJIT.git"
+  rm -rf src/LuaJIT
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_moltenvk() {
   local url="https://github.com/KhronosGroup/MoltenVK.git"
   rm -rf src/MoltenVK
@@ -154,6 +160,9 @@ case "$1" in
   "libvpx")
     fetch_libvpx
     ;;
+  "luajit")
+    fetch_luajit
+    ;;
   "moltenvk")
     fetch_moltenvk
     ;;
@@ -192,6 +201,7 @@ case "$1" in
     fetch_libplacebo
     fetch_libunibreak
     fetch_libvpx
+    fetch_luajit
     fetch_moltenvk
     fetch_mpv
     fetch_opus
