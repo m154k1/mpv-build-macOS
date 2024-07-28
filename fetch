@@ -1,0 +1,211 @@
+#!/usr/bin/env bash -e
+
+cd "$(dirname "$0")"
+
+fetch_dav1d() {
+  local url="https://code.videolan.org/videolan/dav1d.git"
+  rm -rf src/dav1d
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_ffmpeg() {
+  local url="https://git.ffmpeg.org/ffmpeg.git"
+  rm -rf src/ffmpeg
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_freetype() {
+  local url="https://gitlab.freedesktop.org/freetype/freetype.git"
+  rm -rf src/freetype
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_fribidi() {
+  local url="https://github.com/fribidi/fribidi.git"
+  rm -rf src/fribidi
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_harfbuzz() {
+  local url="https://github.com/harfbuzz/harfbuzz.git"
+  rm -rf src/harfbuzz
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_libarchive() {
+  local url="https://github.com/libarchive/libarchive.git"
+  rm -rf src/libarchive
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_libass() {
+  local url="https://github.com/libass/libass.git"
+  rm -rf src/libass
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_libplacebo() {
+  local url="https://code.videolan.org/videolan/libplacebo.git"
+  rm -rf src/libplacebo
+  git -C src clone --single-branch --no-tags "${url}"
+  git -C src/libplacebo submodule update --init 3rdparty/{fast_float,jinja,markupsafe}
+}
+
+fetch_libunibreak() {
+  local version="6.1"
+  local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
+  rm -rf src/libunibreak{,*.tar.gz}
+  curl -sL "${url}" | tar -xvC src -
+  mv -v src/libunibreak-"${version}" src/libunibreak
+}
+
+fetch_libvpx() {
+  local url="https://chromium.googlesource.com/webm/libvpx"
+  rm -rf src/libvpx
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_moltenvk() {
+  local url="https://github.com/KhronosGroup/MoltenVK.git"
+  rm -rf src/MoltenVK
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_mpv() {
+  local url="https://github.com/mpv-player/mpv.git"
+  rm -rf src/mpv
+  git -C src clone --single-branch --no-tags "${url}"
+}
+
+fetch_opus() {
+  local version="1.5.2"
+  local url="https://downloads.xiph.org/releases/opus/opus-${version}.tar.gz"
+  rm -rf src/opus{,*.tar.gz}
+  curl -sL "${url}" | tar -xvC src -
+  mv -v src/opus-"${version}" src/opus
+}
+
+fetch_shaderc() {
+  local url="https://github.com/google/shaderc.git"
+  rm -rf src/shaderc
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_svt-av1() {
+  local url="https://gitlab.com/AOMediaCodec/SVT-AV1.git"
+  rm -rf src/SVT-AV1
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_uchardet() {
+  local url="https://gitlab.freedesktop.org/uchardet/uchardet.git"
+  rm -rf src/uchardet
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_vulkan() {
+  local loaderurl="https://github.com/KhronosGroup/Vulkan-Loader.git"
+  local headersurl="https://github.com/KhronosGroup/Vulkan-Headers.git"
+  rm -rf src/Vulkan-{Loader,Headers}
+  git -C src clone --depth 1 "${loaderurl}"
+  git -C src clone --depth 1 "${headersurl}"
+}
+
+fetch_x264() {
+  local url="https://code.videolan.org/videolan/x264.git"
+  rm -rf src/x264
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_x265() {
+  local url="https://bitbucket.org/multicoreware/x265_git.git"
+  rm -rf src/x265_git
+  git -C src clone --single-branch "${url}"
+}
+
+case "$1" in
+  "dav1d")
+    fetch_dav1d
+    ;;
+  "ffmpeg")
+    fetch_ffmpeg
+    ;;
+  "freetype")
+    fetch_freetype
+    ;;
+  "fribidi")
+    fetch_fribidi
+    ;;
+  "harfbuzz")
+    fetch_harfbuzz
+    ;;
+  "libarchive")
+    fetch_libarchive
+    ;;
+  "libass")
+    fetch_libass
+    ;;
+  "libplacebo")
+    fetch_libplacebo
+    ;;
+  "libunibreak")
+    fetch_libunibreak
+    ;;
+  "libvpx")
+    fetch_libvpx
+    ;;
+  "moltenvk")
+    fetch_moltenvk
+    ;;
+  "mpv")
+    fetch_mpv
+    ;;
+  "opus")
+    fetch_opus
+    ;;
+  "shaderc")
+    fetch_shaderc
+    ;;
+  "svt-av1")
+    fetch_svt-av1
+    ;;
+  "uchardet")
+    fetch_uchardet
+    ;;
+  "vulkan")
+    fetch_vulkan
+    ;;
+  "x264")
+    fetch_x264
+    ;;
+  "x265")
+    fetch_x265
+    ;;
+  "all")
+    fetch_dav1d
+    fetch_ffmpeg
+    fetch_freetype
+    fetch_fribidi
+    fetch_harfbuzz
+    fetch_libarchive
+    fetch_libass
+    fetch_libplacebo
+    fetch_libunibreak
+    fetch_libvpx
+    fetch_moltenvk
+    fetch_mpv
+    fetch_opus
+    fetch_shaderc
+    fetch_svt-av1
+    fetch_uchardet
+    fetch_vulkan
+    fetch_x264
+    fetch_x265
+    ;;
+  *)
+    echo "Invalid option: $@"
+    exit 1
+    ;;
+esac
+
+# vi:set ts=2 sw=2 et:

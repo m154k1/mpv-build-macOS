@@ -1,0 +1,26 @@
+#!/usr/bin/env bash -e
+
+cd "$(dirname "$0")"
+
+./build-vulkan
+./build-moltenvk
+./build-shaderc
+./build-libplacebo
+./build-dav1d
+./build-svt-av1
+./build-x264
+./build-x265
+./build-libvpx
+./build-opus
+./build-freetype -Dharfbuzz=disabled
+./build-harfbuzz
+./build-freetype
+./build-fribidi
+./build-libunibreak
+./build-libass
+./build-ffmpeg
+./build-libarchive
+./build-uchardet
+./build-mpv "$@"
+
+# vi:set ts=2 sw=2 et:
