@@ -24,8 +24,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 3. Install dependencies from Homebrew:  
 
    ```sh
-   xargs brew install --formula < homebrew/build.txt
-   xargs brew install --formula < homebrew/runtime.txt
+   xargs brew install --formula < homebrew/build-deps.txt
    ```
 
 4. Create an installation directory for local packages:  

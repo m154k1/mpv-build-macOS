@@ -62,6 +62,12 @@ fetch_libass() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_libjxl() {
+  local url="https://github.com/libjxl/libjxl.git"
+  rm -rf src/libjxl
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_libplacebo() {
   local url="https://code.videolan.org/videolan/libplacebo.git"
   rm -rf src/libplacebo
@@ -190,6 +196,9 @@ case "$1" in
   "libass")
     fetch_libass
     ;;
+  "libjxl")
+    fetch_libjxl
+    ;;
   "libplacebo")
     fetch_libplacebo
     ;;
@@ -246,6 +255,7 @@ case "$1" in
     fetch_lcms2
     fetch_libarchive
     fetch_libass
+    fetch_libjxl
     fetch_libplacebo
     fetch_libpng
     fetch_libunibreak
