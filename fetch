@@ -2,6 +2,12 @@
 
 cd "$(dirname "$0")"
 
+print_usage() {
+  echo "Usage:"
+  echo "  $0 all"
+  echo "  $0 <pkg1> <pkg2> ..."
+}
+
 fetch_brotli() {
   local url="https://github.com/google/brotli.git"
   rm -rf src/brotli
@@ -165,117 +171,127 @@ fetch_x265() {
   git -C src clone --single-branch "${url}"
 }
 
-case "$1" in
-  "brotli")
-    fetch_brotli
-    ;;
-  "dav1d")
-    fetch_dav1d
-    ;;
-  "ffmpeg")
-    fetch_ffmpeg
-    ;;
-  "freetype")
-    fetch_freetype
-    ;;
-  "fribidi")
-    fetch_fribidi
-    ;;
-  "harfbuzz")
-    fetch_harfbuzz
-    ;;
-  "highway")
-    fetch_highway
-    ;;
-  "lcms2")
-    fetch_lcms2
-    ;;
-  "libarchive")
-    fetch_libarchive
-    ;;
-  "libass")
-    fetch_libass
-    ;;
-  "libjxl")
-    fetch_libjxl
-    ;;
-  "libplacebo")
-    fetch_libplacebo
-    ;;
-  "libpng")
-    fetch_libpng
-    ;;
-  "libunibreak")
-    fetch_libunibreak
-    ;;
-  "libvpx")
-    fetch_libvpx
-    ;;
-  "libwebp")
-    fetch_libwebp
-    ;;
-  "luajit")
-    fetch_luajit
-    ;;
-  "moltenvk")
-    fetch_moltenvk
-    ;;
-  "mpv")
-    fetch_mpv
-    ;;
-  "opus")
-    fetch_opus
-    ;;
-  "shaderc")
-    fetch_shaderc
-    ;;
-  "svt-av1")
-    fetch_svt-av1
-    ;;
-  "uchardet")
-    fetch_uchardet
-    ;;
-  "vulkan")
-    fetch_vulkan
-    ;;
-  "x264")
-    fetch_x264
-    ;;
-  "x265")
-    fetch_x265
-    ;;
-  "all")
-    fetch_brotli
-    fetch_dav1d
-    fetch_ffmpeg
-    fetch_freetype
-    fetch_fribidi
-    fetch_harfbuzz
-    fetch_highway
-    fetch_lcms2
-    fetch_libarchive
-    fetch_libass
-    fetch_libjxl
-    fetch_libplacebo
-    fetch_libpng
-    fetch_libunibreak
-    fetch_libvpx
-    fetch_libwebp
-    fetch_luajit
-    fetch_moltenvk
-    fetch_mpv
-    fetch_opus
-    fetch_shaderc
-    fetch_svt-av1
-    fetch_uchardet
-    fetch_vulkan
-    fetch_x264
-    fetch_x265
-    ;;
-  *)
-    echo "Invalid option: $@"
-    exit 1
-    ;;
-esac
+if [[ $# == 0 ]]; then
+  print_usage
+  exit 1
+fi
+
+if [[ "$@" == "all" ]]; then
+  fetch_brotli
+  fetch_dav1d
+  fetch_ffmpeg
+  fetch_freetype
+  fetch_fribidi
+  fetch_harfbuzz
+  fetch_highway
+  fetch_lcms2
+  fetch_libarchive
+  fetch_libass
+  fetch_libjxl
+  fetch_libplacebo
+  fetch_libpng
+  fetch_libunibreak
+  fetch_libvpx
+  fetch_libwebp
+  fetch_luajit
+  fetch_moltenvk
+  fetch_mpv
+  fetch_opus
+  fetch_shaderc
+  fetch_svt-av1
+  fetch_uchardet
+  fetch_vulkan
+  fetch_x264
+  fetch_x265
+else
+  for arg in "$@"; do
+    case "${arg}" in
+      "brotli")
+        fetch_brotli
+        ;;
+      "dav1d")
+        fetch_dav1d
+        ;;
+      "ffmpeg")
+        fetch_ffmpeg
+        ;;
+      "freetype")
+        fetch_freetype
+        ;;
+      "fribidi")
+        fetch_fribidi
+        ;;
+      "harfbuzz")
+        fetch_harfbuzz
+        ;;
+      "highway")
+        fetch_highway
+        ;;
+      "lcms2")
+        fetch_lcms2
+        ;;
+      "libarchive")
+        fetch_libarchive
+        ;;
+      "libass")
+        fetch_libass
+        ;;
+      "libjxl")
+        fetch_libjxl
+        ;;
+      "libplacebo")
+        fetch_libplacebo
+        ;;
+      "libpng")
+        fetch_libpng
+        ;;
+      "libunibreak")
+        fetch_libunibreak
+        ;;
+      "libvpx")
+        fetch_libvpx
+        ;;
+      "libwebp")
+        fetch_libwebp
+        ;;
+      "luajit")
+        fetch_luajit
+        ;;
+      "moltenvk")
+        fetch_moltenvk
+        ;;
+      "mpv")
+        fetch_mpv
+        ;;
+      "opus")
+        fetch_opus
+        ;;
+      "shaderc")
+        fetch_shaderc
+        ;;
+      "svt-av1")
+        fetch_svt-av1
+        ;;
+      "uchardet")
+        fetch_uchardet
+        ;;
+      "vulkan")
+        fetch_vulkan
+        ;;
+      "x264")
+        fetch_x264
+        ;;
+      "x265")
+        fetch_x265
+        ;;
+      *)
+        echo "Unknown argument:"
+        echo "  ${arg}"
+        print_usage
+        exit 1
+        ;;
+    esac
+  done
+fi
 
 # vi:set ts=2 sw=2 et:
