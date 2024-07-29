@@ -38,6 +38,12 @@ fetch_harfbuzz() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_highway() {
+  local url="https://github.com/google/highway.git"
+  rm -rf src/highway
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_lcms2() {
   local url="https://github.com/mm2/Little-CMS.git"
   rm -rf src/Little-CMS
@@ -172,6 +178,9 @@ case "$1" in
   "harfbuzz")
     fetch_harfbuzz
     ;;
+  "highway")
+    fetch_highway
+    ;;
   "lcms2")
     fetch_lcms2
     ;;
@@ -233,6 +242,7 @@ case "$1" in
     fetch_freetype
     fetch_fribidi
     fetch_harfbuzz
+    fetch_highway
     fetch_lcms2
     fetch_libarchive
     fetch_libass

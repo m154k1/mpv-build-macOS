@@ -1,0 +1,36 @@
+#!/usr/bin/env bash -e
+#
+# Highway
+# https://github.com/google/highway.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="highway"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/highway"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DBUILD_SHARED_LIBS=ON \
+  -DHWY_ENABLE_CONTRIB=OFF \
+  -DHWY_ENABLE_EXAMPLES=OFF \
+  -DHWY_ENABLE_TESTS=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:
