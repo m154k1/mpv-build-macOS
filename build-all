@@ -13,6 +13,7 @@ cd "$(dirname "$0")"
 ./build-libvpx
 ./build-opus
 ./build-libwebp
+./build-libpng
 ./build-freetype -Dharfbuzz=disabled
 ./build-harfbuzz
 ./build-freetype

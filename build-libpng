@@ -1,0 +1,37 @@
+#!/usr/bin/env bash -e
+#
+# libpng
+# https://github.com/pnggroup/libpng.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libpng"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libpng"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DSKIP_INSTALL_EXPORT=ON \
+  -DPNG_STATIC=OFF \
+  -DPNG_FRAMEWORK=OFF \
+  -DPNG_TESTS=OFF \
+  -DPNG_TOOLS=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/{bin,share}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+# vi:set ts=2 sw=2 et:

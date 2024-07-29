@@ -51,6 +51,12 @@ fetch_libplacebo() {
   git -C src/libplacebo submodule update --init 3rdparty/{fast_float,jinja,markupsafe}
 }
 
+fetch_libpng() {
+  local url="https://github.com/pnggroup/libpng.git"
+  rm -rf src/libpng
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_libunibreak() {
   local version="6.1"
   local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
@@ -160,6 +166,9 @@ case "$1" in
   "libplacebo")
     fetch_libplacebo
     ;;
+  "libpng")
+    fetch_libpng
+    ;;
   "libunibreak")
     fetch_libunibreak
     ;;
@@ -208,6 +217,7 @@ case "$1" in
     fetch_libarchive
     fetch_libass
     fetch_libplacebo
+    fetch_libpng
     fetch_libunibreak
     fetch_libvpx
     fetch_libwebp
