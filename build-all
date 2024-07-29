@@ -5,6 +5,7 @@ cd "$(dirname "$0")"
 ./build-vulkan
 ./build-moltenvk
 ./build-shaderc
+./build-lcms2
 ./build-libplacebo
 ./build-dav1d
 ./build-svt-av1
