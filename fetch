@@ -2,6 +2,12 @@
 
 cd "$(dirname "$0")"
 
+fetch_brotli() {
+  local url="https://github.com/google/brotli.git"
+  rm -rf src/brotli
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_dav1d() {
   local url="https://code.videolan.org/videolan/dav1d.git"
   rm -rf src/dav1d
@@ -142,6 +148,9 @@ fetch_x265() {
 }
 
 case "$1" in
+  "brotli")
+    fetch_brotli
+    ;;
   "dav1d")
     fetch_dav1d
     ;;
@@ -209,6 +218,7 @@ case "$1" in
     fetch_x265
     ;;
   "all")
+    fetch_brotli
     fetch_dav1d
     fetch_ffmpeg
     fetch_freetype
