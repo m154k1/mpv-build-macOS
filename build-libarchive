@@ -18,6 +18,8 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DENABLE_LZ4=OFF \
+  -DENABLE_ZSTD=OFF \
   -DENABLE_TAR=OFF \
   -DENABLE_CPIO=OFF \
   -DENABLE_CAT=OFF \
