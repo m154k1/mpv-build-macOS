@@ -10,10 +10,13 @@ pkgname="moltenvk"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/MoltenVK"
 builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
+xcodebuild="xcodebuild ARCHS=$(uname -m) ONLY_ACTIVE_ARCH=YES"
 
 cd "${srcdir}"
 
-./fetchDependencies --macos
+sed -i '' "s/xcodebuild \"\$@\"/${xcodebuild} \"\$@\"/g" fetchDependencies
+sed -i '' "s/XCODEBUILD :=.*/XCODEBUILD := ${xcodebuild}/g" Makefile
+./fetchDependencies --macos --v-headers-root "${PREFIX}"
 make macos MVK_CONFIG_LOG_LEVEL=1
 
 sed -i '' "s|./libMoltenVK|${pkgdir}/lib/libMoltenVK|g" "${builddir}"/MoltenVK_icd.json
