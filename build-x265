@@ -51,7 +51,8 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DLINKED_10BIT=ON \
   -DLINKED_12BIT=ON \
   -DENABLE_CLI=OFF \
-  -Wno-dev
+  -Wno-dev \
+  "$@"
 
 ln -s "${builddir}"-10/libx265.a "${builddir}"/libx265_main10.a
 ln -s "${builddir}"-12/libx265.a "${builddir}"/libx265_main12.a

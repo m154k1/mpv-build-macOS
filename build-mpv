@@ -11,8 +11,6 @@ pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/mpv"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
-PKG_CONFIG_PATH+=":$(brew --prefix libarchive)/lib/pkgconfig"
-
 if [ "$1" == "--bundle" ]; then
   bundle=1
   shift

@@ -28,7 +28,7 @@ cmake --build "${builddir}"
 rm -rf "${pkgdir}"
 
 cmake --install "${builddir}"
-rm -rf "${pkgdir}"/share
+rm -rf "${pkgdir}"/{lib/cmake,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"

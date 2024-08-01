@@ -17,14 +17,14 @@ cd "${srcdir}"
 sed -i '' "s/xcodebuild \"\$@\"/${xcodebuild} \"\$@\"/g" fetchDependencies
 sed -i '' "s/XCODEBUILD :=.*/XCODEBUILD := ${xcodebuild}/g" Makefile
 ./fetchDependencies --macos --v-headers-root "${PREFIX}"
-make macos MVK_CONFIG_LOG_LEVEL=1
+make macos MVK_CONFIG_LOG_LEVEL=1 "$@"
 
 sed -i '' "s|./libMoltenVK|${pkgdir}/lib/libMoltenVK|g" "${builddir}"/MoltenVK_icd.json
 cat "${builddir}"/MoltenVK_icd.json
 
 rm -rf "${pkgdir}"
 
-mkdir -p "${pkgdir}"/lib "${pkgdir}"/share/vulkan/icd.d
+mkdir -p "${pkgdir}"/{lib,share/vulkan/icd.d}
 install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
 install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/share/vulkan/icd.d
 stow -Rd "${STOWDIR}" "${pkgname}"

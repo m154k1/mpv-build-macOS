@@ -33,7 +33,7 @@ cmake --build "${builddir}"
 rm -rf "${pkgdir}"
 
 cmake --install "${builddir}"
-rm -rf "${pkgdir}"/bin "${pkgdir}"/lib/*.a "${pkgdir}"/lib/pkgconfig/*{combined,static}.pc
+rm -rf "${pkgdir}"/{bin,lib/{*.a,pkgconfig/*{combined,static}.pc}}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"

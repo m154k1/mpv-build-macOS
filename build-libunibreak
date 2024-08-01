@@ -15,7 +15,8 @@ cd "${srcdir}"
 ./configure \
   --prefix="${pkgdir}" \
   --enable-shared \
-  --disable-static
+  --disable-static \
+  "$@"
 
 make -j4
 

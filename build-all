@@ -18,7 +18,7 @@ cd "$(dirname "$0")"
 ./build-brotli
 ./build-highway
 ./build-libjxl
-./build-freetype -Dharfbuzz=disabled
+./build-freetype
 ./build-harfbuzz
 ./build-freetype
 ./build-fribidi

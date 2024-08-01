@@ -13,7 +13,8 @@ srcdir="src/LuaJIT"
 make -C "${srcdir}" -j4 amalg \
   PREFIX="${pkgdir}" \
   BUILDMODE=dynamic \
-  CFLAGS="${CFLAGS} -O3 -flto=thin"
+  CFLAGS="${CFLAGS} -O3 -flto=thin" \
+  "$@"
 
 rm -rf "${pkgdir}"
 

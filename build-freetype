@@ -21,7 +21,6 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto_mode=thin \
   -Dbrotli=enabled \
   -Dbzip2=enabled \
-  -Dharfbuzz=enabled \
   -Dmmap=enabled \
   -Dpng=enabled \
   -Dzlib=system \

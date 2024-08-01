@@ -33,7 +33,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DJPEGXL_ENABLE_SKCMS=OFF \
   -DJPEGXL_BUNDLE_LIBPNG=OFF \
   -DBUILD_TESTING=OFF \
-  -Wno-dev\
+  -Wno-dev \
   "$@"
 
 cmake --build "${builddir}"

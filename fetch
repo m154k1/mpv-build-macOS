@@ -90,7 +90,7 @@ fetch_libpng() {
 fetch_libunibreak() {
   local version="6.1"
   local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
-  rm -rf src/libunibreak{,*.tar.gz}
+  rm -rf src/libunibreak
   curl -sL "${url}" | tar -xvC src -
   mv -v src/libunibreak-"${version}" src/libunibreak
 }
@@ -128,7 +128,7 @@ fetch_mpv() {
 fetch_opus() {
   local version="1.5.2"
   local url="https://downloads.xiph.org/releases/opus/opus-${version}.tar.gz"
-  rm -rf src/opus{,*.tar.gz}
+  rm -rf src/opus
   curl -sL "${url}" | tar -xvC src -
   mv -v src/opus-"${version}" src/opus
 }
