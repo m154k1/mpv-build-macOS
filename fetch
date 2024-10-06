@@ -21,9 +21,9 @@ fetch_dav1d() {
 }
 
 fetch_ffmpeg() {
-  local url="https://git.ffmpeg.org/ffmpeg.git"
+  local url="https://github.com/FFmpeg/FFmpeg.git"
   rm -rf src/ffmpeg
-  git -C src clone --depth 1 "${url}"
+  git -C src clone --depth 1 "${url}" ffmpeg
 }
 
 fetch_freetype() {
