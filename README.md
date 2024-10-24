@@ -58,10 +58,8 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
 ```cfg
 # ~/.config/mpv/mpv.conf
-
 vo=gpu-next
 hwdec=yes
-dither-depth=no
 macos-render-timer=feedback
 ```
 
