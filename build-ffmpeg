@@ -46,6 +46,7 @@ cd "${srcdir}"
   --disable-libxcb \
   --disable-xlib \
   --disable-hwaccels \
+  --enable-hwaccel=av1_videotoolbox \
   --enable-hwaccel=h264_videotoolbox \
   --enable-hwaccel=hevc_videotoolbox \
   --enable-hwaccel=mpeg4_videotoolbox \
