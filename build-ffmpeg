@@ -14,7 +14,6 @@ cd "${srcdir}"
 
 ./configure \
   --prefix="${pkgdir}" \
-  --pkg-config="${PKG_CONFIG}" \
   --arch="$(uname -m)" \
   --cpu=host \
   --cc=clang \
