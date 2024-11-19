@@ -76,6 +76,14 @@ fetch_libbluray() {
   mv -v src/libbluray-"${version}" src/libbluray
 }
 
+fetch_libdvdnav() {
+  local version="6.1.1"
+  local url="https://download.videolan.org/pub/videolan/libdvdnav/${version}/libdvdnav-${version}.tar.bz2"
+  rm -rf src/libdvdnav
+  curl -sL "${url}" | tar -xvC src -
+  mv -v src/libdvdnav-"${version}" src/libdvdnav
+}
+
 fetch_libdvdread() {
   local version="6.1.3"
   local url="https://download.videolan.org/pub/videolan/libdvdread/${version}/libdvdread-${version}.tar.bz2"
@@ -205,6 +213,7 @@ if [[ "$@" == "all" ]]; then
   fetch_libarchive
   fetch_libass
   fetch_libbluray
+  fetch_libdvdnav
   fetch_libdvdread
   fetch_libjxl
   fetch_libplacebo
@@ -257,6 +266,9 @@ else
         ;;
       "libbluray")
         fetch_libbluray
+        ;;
+      "libdvdnav")
+        fetch_libdvdnav
         ;;
       "libdvdread")
         fetch_libdvdread

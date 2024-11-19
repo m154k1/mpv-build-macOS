@@ -26,6 +26,7 @@ cd "$(dirname "$0")"
 ./build-libass
 ./build-libbluray
 ./build-libdvdread
+./build-libdvdnav
 ./build-ffmpeg
 ./build-luajit
 ./build-libarchive
