@@ -15,6 +15,7 @@ cd "${srcdir}"
 ./configure \
   --prefix="${pkgdir}" \
   --enable-shared \
+  --enable-runtime-cpu-detect \
   --enable-pic \
   --enable-vp9 \
   --enable-vp9-highbitdepth \
