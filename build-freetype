@@ -30,7 +30,7 @@ meson compile -C "${builddir}"
 
 rm -rf "${pkgdir}"
 
-meson install -C "${builddir}"
+meson install -C "${builddir}" --tags runtime,devel
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
