@@ -1,0 +1,36 @@
+#!/usr/bin/env bash -e
+#
+# libbluray
+# https://code.videolan.org/videolan/libbluray.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libbluray"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libbluray"
+
+cd "${srcdir}"
+
+./configure \
+  --prefix="${pkgdir}" \
+  --enable-shared \
+  --enable-optimizations \
+  --disable-static \
+  --disable-examples \
+  --disable-bdjava-jar \
+  --with-libxml2 \
+  --with-freetype \
+  --without-fontconfig \
+  --without-external-libudfread \
+  "$@"
+
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+rm -f "${pkgdir}"/lib/*.la
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+# vi:set ts=2 sw=2 et:

@@ -24,6 +24,7 @@ cd "$(dirname "$0")"
 ./build-fribidi
 ./build-libunibreak
 ./build-libass
+./build-libbluray
 ./build-ffmpeg
 ./build-luajit
 ./build-libarchive

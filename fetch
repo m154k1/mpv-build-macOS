@@ -68,6 +68,14 @@ fetch_libass() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_libbluray() {
+  local version="1.3.4"
+  local url="https://download.videolan.org/pub/videolan/libbluray/${version}/libbluray-${version}.tar.bz2"
+  rm -rf src/libbluray
+  curl -sL "${url}" | tar -xvC src -
+  mv -v src/libbluray-"${version}" src/libbluray
+}
+
 fetch_libjxl() {
   local url="https://github.com/libjxl/libjxl.git"
   rm -rf src/libjxl
@@ -188,6 +196,7 @@ if [[ "$@" == "all" ]]; then
   fetch_lcms2
   fetch_libarchive
   fetch_libass
+  fetch_libbluray
   fetch_libjxl
   fetch_libplacebo
   fetch_libpng
@@ -236,6 +245,9 @@ else
         ;;
       "libass")
         fetch_libass
+        ;;
+      "libbluray")
+        fetch_libbluray
         ;;
       "libjxl")
         fetch_libjxl
