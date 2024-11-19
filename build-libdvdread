@@ -1,0 +1,30 @@
+#!/usr/bin/env bash -e
+#
+# libdvdread
+# https://code.videolan.org/videolan/libdvdread.git
+#
+cd "$(dirname "$0")"
+set -a; source build.env; set +a
+
+pkgname="libdvdread"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libdvdread"
+
+cd "${srcdir}"
+
+./configure \
+  --prefix="${pkgdir}" \
+  --enable-shared \
+  --disable-static \
+  --disable-apidoc \
+  "$@"
+
+make -j4
+
+rm -rf "${pkgdir}"
+
+make install
+rm -rf "${pkgdir}"/lib/*.la "${pkgdir}"/share
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+# vi:set ts=2 sw=2 et:
