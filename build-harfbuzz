@@ -40,5 +40,3 @@ meson install -C "${builddir}" --tags runtime,devel
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
-
-# vi:set ts=2 sw=2 et:

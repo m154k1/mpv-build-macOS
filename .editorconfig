@@ -1,0 +1,20 @@
+root = true
+
+[*]
+charset = utf-8
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+max_line_length = 100
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[{homebrew,patches,src}/**]
+charset = unset
+insert_final_newline = unset
+indent_style = unset
+indent_size = unset
+max_line_length = unset
+trim_trailing_whitespace = unset

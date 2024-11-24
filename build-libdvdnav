@@ -26,5 +26,3 @@ rm -rf "${pkgdir}"
 make install
 rm -rf "${pkgdir}"/lib/*.la "${pkgdir}"/share
 stow -Rd "${STOWDIR}" "${pkgname}"
-
-# vi:set ts=2 sw=2 et:

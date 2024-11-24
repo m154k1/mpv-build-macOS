@@ -37,5 +37,3 @@ rm -rf "${pkgdir}"/{bin,lib/{*.a,pkgconfig/*{combined,static}.pc}}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
-
-# vi:set ts=2 sw=2 et:

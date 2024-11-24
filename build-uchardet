@@ -32,5 +32,3 @@ rm -rf "${pkgdir}"/{lib/cmake,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
-
-# vi:set ts=2 sw=2 et:

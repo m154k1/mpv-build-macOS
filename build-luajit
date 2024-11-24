@@ -21,5 +21,3 @@ rm -rf "${pkgdir}"
 make -C "${srcdir}" install PREFIX="${pkgdir}"
 rm -rf "${pkgdir}"/{bin,lib/lua,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
-
-# vi:set ts=2 sw=2 et:

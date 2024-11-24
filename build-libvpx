@@ -45,5 +45,3 @@ for lib in "${pkgdir}"/lib/*.dylib; do
 done
 
 stow -Rd "${STOWDIR}" "${pkgname}"
-
-# vi:set ts=2 sw=2 et:

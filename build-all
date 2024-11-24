@@ -32,5 +32,3 @@ cd "$(dirname "$0")"
 ./build-libarchive
 ./build-uchardet
 ./build-mpv "$@"
-
-# vi:set ts=2 sw=2 et:
