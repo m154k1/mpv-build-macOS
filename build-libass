@@ -20,7 +20,6 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dc_args=-D_DARWIN_C_SOURCE \
   -Dcoretext=enabled \
   -Dasm=enabled \
   -Dlibunibreak=enabled \
