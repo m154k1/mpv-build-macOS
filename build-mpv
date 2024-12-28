@@ -33,8 +33,8 @@ meson setup "${builddir}" "${srcdir}" \
 meson compile -C "${builddir}"
 
 if [ -n "${bundle}" ]; then
-  mkdir -p ~/.local/share/vulkan
-  ln -sfn "${PREFIX}"/share/vulkan/icd.d ~/.local/share/vulkan/icd.d
+  mkdir -p ~/.config/vulkan
+  ln -sfn "${PREFIX}"/etc/vulkan/icd.d ~/.config/vulkan/icd.d
 
   meson compile -C "${builddir}" macos-bundle
   tar -czvf mpv.tar.gz -C "${builddir}" mpv.app

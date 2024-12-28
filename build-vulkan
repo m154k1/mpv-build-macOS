@@ -31,7 +31,7 @@ cmake -B "${builddir}" -S "${loadersrcdir}" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DVULKAN_HEADERS_INSTALL_DIR="${pkgdir}" \
-  -DFALLBACK_DATA_DIRS="${PREFIX}/share:/usr/local/share" \
+  -DSYSCONFDIR="${PREFIX}/etc" \
   -DBUILD_TESTS=OFF \
   "$@"
 

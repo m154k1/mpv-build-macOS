@@ -24,7 +24,7 @@ cat "${builddir}"/MoltenVK_icd.json
 
 rm -rf "${pkgdir}"
 
-install -d "${pkgdir}"/{lib,share/vulkan/icd.d}
+install -d "${pkgdir}"/{lib,etc/vulkan/icd.d}
 install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
-install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/share/vulkan/icd.d
+install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/etc/vulkan/icd.d
 stow -Rd "${STOWDIR}" "${pkgname}"
