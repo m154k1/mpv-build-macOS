@@ -23,6 +23,11 @@ meson setup "${builddir}" "${srcdir}" \
   -Dcoretext=enabled \
   -Dasm=enabled \
   -Dlibunibreak=enabled \
+  -Dtest=disabled \
+  -Dcompare=disabled \
+  -Dprofile=disabled \
+  -Dfuzz=disabled \
+  -Dcheckasm=disabled \
   -Dfontconfig=disabled \
   -Ddirectwrite=disabled \
   "$@"
