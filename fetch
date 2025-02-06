@@ -144,9 +144,6 @@ fetch_moltenvk() {
   local url="https://github.com/KhronosGroup/MoltenVK.git"
   rm -rf src/MoltenVK
   git -C src clone --depth 1 "${url}"
-
-  # fix HDR playback segmentation fault
-  curl -sL "https://github.com/KhronosGroup/MoltenVK/pull/2436.diff" | git -C src/MoltenVK apply -
 }
 
 fetch_mpv() {
