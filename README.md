@@ -31,7 +31,7 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
    ```sh
    sudo mkdir /opt/local
-   sudo chown $USER:admin /opt/local
+   sudo chown "$USER":admin /opt/local
    mkdir /opt/local/stow
    ```
 
