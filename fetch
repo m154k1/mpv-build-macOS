@@ -24,9 +24,6 @@ fetch_ffmpeg() {
   local url="https://github.com/FFmpeg/FFmpeg.git"
   rm -rf src/ffmpeg
   git -C src clone --depth 1 "${url}" ffmpeg
-
-  # fix build with SVT-AV1 master
-  curl -sL "https://gitlab.com/AOMediaCodec/SVT-AV1/-/raw/master/.gitlab/workflows/linux/ffmpeg_n7_fix.patch" | git -C src/ffmpeg apply -
 }
 
 fetch_freetype() {
