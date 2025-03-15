@@ -7,7 +7,7 @@
 # https://github.com/KhronosGroup/Vulkan-Loader.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="vulkan"
 pkgdir="${STOWDIR}/${pkgname}"

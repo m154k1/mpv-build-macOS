@@ -4,7 +4,7 @@
 # https://gitlab.xiph.org/xiph/opus.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="opus"
 pkgdir="${STOWDIR}/${pkgname}"

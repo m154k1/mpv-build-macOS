@@ -4,7 +4,7 @@
 # https://github.com/google/brotli.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="brotli"
 pkgdir="${STOWDIR}/${pkgname}"

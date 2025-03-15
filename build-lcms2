@@ -4,7 +4,7 @@
 # https://github.com/mm2/Little-CMS.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="lcms2"
 pkgdir="${STOWDIR}/${pkgname}"

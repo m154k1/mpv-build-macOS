@@ -4,7 +4,7 @@
 # https://github.com/adah1972/libunibreak.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="libunibreak"
 pkgdir="${STOWDIR}/${pkgname}"

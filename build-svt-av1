@@ -4,7 +4,7 @@
 # https://gitlab.com/AOMediaCodec/SVT-AV1.git
 #
 cd "$(dirname "$0")"
-set -a; source build.env; set +a
+set -a; . .env; set +a
 
 pkgname="svt-av1"
 pkgdir="${STOWDIR}/${pkgname}"
