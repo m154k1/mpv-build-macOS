@@ -1,0 +1,13 @@
+diff --git a/source/CMakeLists.txt b/source/CMakeLists.txt
+index 4f5b3ed82..4b8591b41 100755
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -168,7 +168,7 @@ if(APPLE)
+   add_definitions(-DMACOS=1)
+ endif()
+ 
+-if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
++if(${CMAKE_CXX_COMPILER_ID} MATCHES "AppleClang|Clang")
+     set(CLANG 1)
+ endif()
+ if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")
