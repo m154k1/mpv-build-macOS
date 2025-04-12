@@ -193,7 +193,6 @@ fetch_x265() {
   local url="https://bitbucket.org/multicoreware/x265_git.git"
   rm -rf src/x265_git
   git -C src clone --single-branch "${url}"
-  git -C src/x265_git apply "$(realpath patches/x265-cmake-4.0.diff)"
 }
 
 if [[ $# == 0 ]]; then
