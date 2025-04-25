@@ -69,11 +69,10 @@ fetch_libass() {
 }
 
 fetch_libbluray() {
-  local version="1.3.4"
-  local url="https://download.videolan.org/pub/videolan/libbluray/${version}/libbluray-${version}.tar.bz2"
+  local url="https://code.videolan.org/videolan/libbluray.git"
   rm -rf src/libbluray
-  curl -sL "${url}" | tar -xvC src -
-  mv -v src/libbluray-"${version}" src/libbluray
+  git -C src clone --depth 1 "${url}"
+  git -C src/libbluray submodule update --init
 }
 
 fetch_libdvdnav() {

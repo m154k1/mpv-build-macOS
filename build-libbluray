@@ -9,26 +9,29 @@ set -a; . .env; set +a
 pkgname="libbluray"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libbluray"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
-cd "${srcdir}"
+rm -rf "${builddir}"
 
-./configure \
+meson setup "${builddir}" "${srcdir}" \
   --prefix="${pkgdir}" \
-  --enable-shared \
-  --enable-optimizations \
-  --disable-static \
-  --disable-examples \
-  --disable-bdjava-jar \
-  --with-libxml2 \
-  --with-freetype \
-  --without-fontconfig \
-  --without-external-libudfread \
+  -Ddefault_library=shared \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dfreetype=enabled \
+  -Dlibxml2=enabled \
+  -Denable_tools=false \
+  -Dbdj_jar=disabled \
+  -Dfontconfig=disabled \
   "$@"
 
-make -j4
+meson compile -C "${builddir}"
 
 rm -rf "${pkgdir}"
 
-make install
-rm -f "${pkgdir}"/lib/*.la
+meson install -C "${builddir}"
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
