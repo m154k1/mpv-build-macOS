@@ -19,7 +19,7 @@ sed -i '' 's/XCODEBUILD := .*/XCODEBUILD := '"${xcodebuild}"'/' Makefile
 ./fetchDependencies --macos --v-headers-root "${PREFIX}"
 make macos MVK_CONFIG_LOG_LEVEL=1 "$@"
 
-sed -i '' 's#\./#../../../lib/#' "${builddir}"/MoltenVK_icd.json
+sed -i '' 's;\./;../../../lib/;' "${builddir}"/MoltenVK_icd.json
 cat "${builddir}"/MoltenVK_icd.json
 
 rm -rf "${pkgdir}"

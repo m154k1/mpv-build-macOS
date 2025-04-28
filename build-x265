@@ -8,7 +8,7 @@ set -a; . .env; set +a
 
 pkgname="x265"
 pkgdir="${STOWDIR}/${pkgname}"
-srcdir="src/x265_git/source"
+srcdir="src/x265/source"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 rm -rf "${builddir}"{,-10,-12}

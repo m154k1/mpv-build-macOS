@@ -8,6 +8,13 @@ print_usage() {
   echo "  $0 <pkg1> <pkg2> ..."
 }
 
+fetch_tar() {
+  local url="$1"
+  local name="$2"
+  rm -rf src/"${name}"
+  curl -sL "${url}" | tar -xvC src -s ";^[^/]*;${name};"
+}
+
 fetch_brotli() {
   local url="https://github.com/google/brotli.git"
   rm -rf src/brotli
@@ -71,23 +78,18 @@ fetch_libass() {
 fetch_libbluray() {
   local url="https://code.videolan.org/videolan/libbluray.git"
   rm -rf src/libbluray
-  git -C src clone --depth 1 "${url}"
-  git -C src/libbluray submodule update --init
+  git -C src clone --depth 1 --recurse-submodules "${url}"
 }
 
 fetch_libdvdnav() {
   local version="6.1.1"
   local url="https://download.videolan.org/pub/videolan/libdvdnav/${version}/libdvdnav-${version}.tar.bz2"
-  rm -rf src/libdvdnav
-  curl -sL "${url}" | tar -xvC src -
-  mv -v src/libdvdnav-"${version}" src/libdvdnav
+  fetch_tar "${url}" libdvdnav
 }
 
 fetch_libdvdread() {
-  local url="https://code.videolan.org/videolan/libdvdread/-/archive/master/libdvdread-master.tar.gz"
-  rm -rf src/libdvdread
-  curl -sL "${url}" | tar -xvC src -
-  mv -v src/libdvdread-master src/libdvdread
+  local url="https://code.videolan.org/videolan/libdvdread/-/archive/master/libdvdread-master.tar.bz2"
+  fetch_tar "${url}" libdvdread
 }
 
 fetch_libjxl() {
@@ -99,8 +101,7 @@ fetch_libjxl() {
 fetch_libplacebo() {
   local url="https://code.videolan.org/videolan/libplacebo.git"
   rm -rf src/libplacebo
-  git -C src clone --single-branch --no-tags "${url}"
-  git -C src/libplacebo submodule update --init 3rdparty/{fast_float,jinja,markupsafe}
+  git -C src clone --depth 1 --recurse-submodules=3rdparty/{fast_float,jinja,markupsafe} "${url}"
 }
 
 fetch_libpng() {
@@ -112,9 +113,7 @@ fetch_libpng() {
 fetch_libunibreak() {
   local version="6.1"
   local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
-  rm -rf src/libunibreak
-  curl -sL "${url}" | tar -xvC src -
-  mv -v src/libunibreak-"${version}" src/libunibreak
+  fetch_tar "${url}" libunibreak
 }
 
 fetch_libvpx() {
@@ -144,15 +143,13 @@ fetch_moltenvk() {
 fetch_mpv() {
   local url="https://github.com/mpv-player/mpv.git"
   rm -rf src/mpv
-  git -C src clone --single-branch --no-tags "${url}"
+  git -C src clone --depth 1 "${url}"
 }
 
 fetch_opus() {
   local version="1.5.2"
   local url="https://downloads.xiph.org/releases/opus/opus-${version}.tar.gz"
-  rm -rf src/opus
-  curl -sL "${url}" | tar -xvC src -
-  mv -v src/opus-"${version}" src/opus
+  fetch_tar "${url}" opus
 }
 
 fetch_shaderc() {
@@ -188,9 +185,8 @@ fetch_x264() {
 }
 
 fetch_x265() {
-  local url="https://bitbucket.org/multicoreware/x265_git.git"
-  rm -rf src/x265_git
-  git -C src clone --single-branch "${url}"
+  local url="https://bitbucket.org/multicoreware/x265_git/get/master.tar.bz2"
+  fetch_tar "${url}" x265
 }
 
 if [[ $# == 0 ]]; then

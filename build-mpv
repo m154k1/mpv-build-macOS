@@ -36,6 +36,7 @@ if [ -n "${bundle}" ]; then
   ln -sfn "${PREFIX}"/etc/vulkan/icd.d ~/.config/vulkan/icd.d
 
   meson compile -C "${builddir}" macos-bundle
+  rm -f mpv.tar.gz
   tar -czvf mpv.tar.gz -C "${builddir}" mpv.app
 fi
 
