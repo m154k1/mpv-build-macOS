@@ -1,0 +1,50 @@
+name: Build & Upload Artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/build.yml'
+      - '.env'
+      - 'build-*'
+      - 'fetch'
+
+env:
+  MACOSX_DEPLOYMENT_TARGET: 15.2
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
+      - name: Create Stow Directory
+        run: |
+          sudo mkdir -p /opt/local
+          sudo chown "$USER":admin /opt/local
+          mkdir /opt/local/stow
+
+      - name: Install Dependencies
+        run: |
+          brew update
+          xargs brew install -q --formula < homebrew/build-deps.txt
+
+      - name: Fetch Sources
+        run: ./fetch all
+
+      - name: Build & Install
+        run: ./build-all --bundle
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mpv-macos-15-arm64
+          path: mpv.tar.gz
+          compression-level: 0
+          overwrite: true
