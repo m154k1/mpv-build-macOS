@@ -1,5 +1,6 @@
 # mpv-build-macOS
-A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://github.com/KhronosGroup/MoltenVK) support.  
+
+A set of scripts that help build [mpv](https://mpv.io) on macOS.
 
 ### Requirements
 
@@ -8,65 +9,77 @@ A set of scripts that help build [mpv](https://mpv.io) with [MoltenVK](https://g
 
 ### Build and install
 
-1. Make sure Xcode is ready by running:  
+:arrow_right: Make sure Xcode is ready:
 
-   ```sh
-   xcodebuild -runFirstLaunch
-   ```
+```sh
+xcodebuild -runFirstLaunch
+```
 
-2. Clone the repository:  
+:arrow_right: Clone the repository:
 
-   ```sh
-   git clone "https://github.com/m154k1/mpv-build-macOS.git"
-   cd mpv-build-macOS
-   ```
+```sh
+git clone "https://github.com/m154k1/mpv-build-macOS.git"
+cd mpv-build-macOS
+```
 
-3. Install dependencies from Homebrew:  
+:arrow_right: Install build dependencies from Homebrew:
 
-   ```sh
-   xargs brew install --formula < homebrew/build-deps.txt
-   ```
+```sh
+xargs brew install --formula < homebrew/build-deps.txt
+```
 
-4. Create an installation directory for local packages:  
+:arrow_right: Create an installation directory for local packages:
 
-   ```sh
-   sudo mkdir /opt/local
-   sudo chown "$USER":admin /opt/local
-   mkdir /opt/local/stow
-   ```
+> [!NOTE]
+> If you want to use custom installation directory,
+> set `PREFIX` environment variable instead.
 
-5. Fetch sources:  
+```sh
+sudo mkdir /opt/local
+sudo chown "$USER":admin /opt/local
+mkdir /opt/local/stow
+```
 
-   ```sh
-   ./fetch all
-   ```
+:arrow_right: Fetch sources:
 
-6. Build mpv and its dependencies:  
+```sh
+./fetch all
+```
 
-   ```sh
-   # This will build and install mpv as CLI program
-   ./build-all
+:arrow_right: Build mpv and its dependencies (select an option):
 
-   # Alternatively, you can make an app bundle by adding '--bundle' option
-   # This will create mpv.tar.gz with mpv.app
-   ./build-all --bundle
-   ```
+- Install mpv as CLI-only program:
 
-7. Add `/opt/local/bin` to your `$PATH`.
+  ```sh
+  ./build-all
+  ```
+
+- Install CLI and create an app bundle (mpv.app):
+
+  ```sh
+  ./build-all --bundle
+  ```
+
+  The bundle will be placed in `mpv.tar.gz`.
+
+:arrow_right: Add `/opt/local/bin` (or `$PREFIX/bin`) to your `$PATH`.
 
 ### Recommended settings
 
 ```cfg
 # ~/.config/mpv/mpv.conf
 vo=gpu-next
-hwdec=yes
+hwdec=videotoolbox
 macos-render-timer=feedback
 ```
 
 ### Environment variables
 
-- `MTL_HUD_ENABLED=1`  
-  Enables the [Metal Performance HUD](https://developer.apple.com/documentation/xcode/monitoring-your-metal-apps-graphics-performance).  
+- `MVK_CONFIG_LOG_LEVEL=<value>` - sets MoltenVK log level:
 
-- `MVK_CONFIG_LOG_LEVEL=3`  
-  Enables verbose MoltenVK logging.  
+  * `0` - disabled
+  * `1` - error
+  * `2` - warning
+  * `3` - verbose
+
+- `MTL_HUD_ENABLED=1` - enables the [Metal Performance HUD](https://developer.apple.com/documentation/xcode/monitoring-your-metal-apps-graphics-performance).
