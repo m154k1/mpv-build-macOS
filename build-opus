@@ -11,6 +11,9 @@ pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/opus"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+echo
+echo "*** $0: started"
+
 rm -rf "${builddir}"
 
 meson setup "${builddir}" "${srcdir}" \
@@ -35,3 +38,5 @@ meson install -C "${builddir}"
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
+
+echo "*** $0: finished"

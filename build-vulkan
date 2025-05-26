@@ -15,6 +15,9 @@ headerssrcdir="src/Vulkan-Headers"
 loadersrcdir="src/Vulkan-Loader"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+echo
+echo "*** $0: started"
+
 rm -rf "${builddir}" "${pkgdir}"
 
 cmake -B "${builddir}" -S "${headerssrcdir}" \
@@ -41,3 +44,5 @@ rm -rf "${pkgdir}"/{lib/cmake,loader,share/cmake}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
+
+echo "*** $0: finished"

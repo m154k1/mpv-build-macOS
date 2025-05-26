@@ -16,6 +16,9 @@ if [ "$1" == "--bundle" ]; then
   shift
 fi
 
+echo
+echo "*** $0: started"
+
 rm -rf "${builddir}"
 
 meson setup "${builddir}" "${srcdir}" \
@@ -46,3 +49,5 @@ meson install -C "${builddir}" --tags runtime,devel
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
+
+echo "*** $0: finished"

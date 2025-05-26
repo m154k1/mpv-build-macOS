@@ -11,6 +11,9 @@ pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/highway"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+echo
+echo "*** $0: started"
+
 rm -rf "${builddir}"
 
 cmake -B "${builddir}" -S "${srcdir}" \
@@ -33,3 +36,5 @@ rm -rf "${pkgdir}"/lib/cmake
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
+
+echo "*** $0: finished"

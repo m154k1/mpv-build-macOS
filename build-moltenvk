@@ -12,6 +12,9 @@ srcdir="src/MoltenVK"
 builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
 xcodebuild="xcodebuild ARCHS=$(uname -m) ONLY_ACTIVE_ARCH=YES"
 
+echo
+echo "*** $0: started"
+
 cd "${srcdir}"
 
 sed -i '' 's/xcodebuild "$@"/'"${xcodebuild}"' "$@"/g' fetchDependencies
@@ -20,7 +23,10 @@ sed -i '' 's/XCODEBUILD := .*/XCODEBUILD := '"${xcodebuild}"'/' Makefile
 make macos MVK_CONFIG_LOG_LEVEL=1 "$@"
 
 sed -i '' 's;\./;../../../lib/;' "${builddir}"/MoltenVK_icd.json
+echo
+echo 'MoltenVK_icd.json:'
 cat "${builddir}"/MoltenVK_icd.json
+echo
 
 rm -rf "${pkgdir}"
 
@@ -28,3 +34,5 @@ install -d "${pkgdir}"/{lib,etc/vulkan/icd.d}
 install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
 install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/etc/vulkan/icd.d
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+echo "*** $0: finished"

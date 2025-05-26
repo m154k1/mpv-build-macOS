@@ -11,6 +11,9 @@ pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libjxl"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+echo
+echo "*** $0: started"
+
 rm -rf "${builddir}"
 
 cmake -B "${builddir}" -S "${srcdir}" \
@@ -44,3 +47,5 @@ cmake --install "${builddir}"
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
+
+echo "*** $0: finished"

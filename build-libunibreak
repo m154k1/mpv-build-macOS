@@ -10,6 +10,9 @@ pkgname="libunibreak"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libunibreak"
 
+echo
+echo "*** $0: started"
+
 cd "${srcdir}"
 
 ./configure \
@@ -25,3 +28,5 @@ rm -rf "${pkgdir}"
 make install
 rm -f "${pkgdir}"/lib/*.la
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+echo "*** $0: finished"
