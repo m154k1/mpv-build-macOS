@@ -7,32 +7,30 @@ on:
       - master
     paths:
       - '.github/workflows/build.yml'
-      - '.env'
       - 'build-*'
       - 'fetch'
 
-env:
-  MACOSX_DEPLOYMENT_TARGET: 15.2
-
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.3.app
+          xcodebuild -version
 
       - name: Create Stow Directory
         run: |
           sudo mkdir -p /opt/local
           sudo chown "$USER":admin /opt/local
-          mkdir /opt/local/stow
+          mkdir -p /opt/local/stow
 
       - name: Install Dependencies
         run: |
-          brew update
+          brew update -q
           xargs brew install -q --formula < homebrew/build-deps.txt
 
       - name: Fetch Sources
@@ -40,6 +38,8 @@ jobs:
 
       - name: Build & Install
         run: ./build-all --bundle
+        env:
+          MACOSX_DEPLOYMENT_TARGET: 15.4
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
