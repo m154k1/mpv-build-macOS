@@ -1,4 +1,5 @@
 # mpv-build-macOS
+[![Build & Upload Artifact](https://github.com/m154k1/mpv-build-macOS/actions/workflows/build.yml/badge.svg)](https://github.com/m154k1/mpv-build-macOS/actions/workflows/build.yml)
 
 A set of scripts that help build [mpv](https://mpv.io) on macOS.
 
