@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 #
 # libdvdnav
 # https://code.videolan.org/videolan/libdvdnav.git

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 
 cd "$(dirname "$0")"
 
@@ -194,7 +194,7 @@ if [[ $# == 0 ]]; then
   exit 1
 fi
 
-if [[ "$@" == "all" ]]; then
+if [[ "$*" == "all" ]]; then
   fetch_brotli
   fetch_dav1d
   fetch_ffmpeg

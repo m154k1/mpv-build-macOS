@@ -1,0 +1,7 @@
+external-sources=true
+
+# Ignore "Expressions don't expand in single quotes"
+disable=SC2016
+
+# Ignore "Use "${var:?}" to ensure this never expands to /*"
+disable=SC2115

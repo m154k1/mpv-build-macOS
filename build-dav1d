@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 #
 # dav1d
 # https://code.videolan.org/videolan/dav1d.git

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 #
 # mpv
 # https://github.com/mpv-player/mpv.git

@@ -1,4 +1,5 @@
 # mpv-build-macOS
+
 [![Build & Upload Artifact](https://github.com/m154k1/mpv-build-macOS/actions/workflows/build.yml/badge.svg)](https://github.com/m154k1/mpv-build-macOS/actions/workflows/build.yml)
 
 A set of scripts that help build [mpv](https://mpv.io) on macOS.
@@ -83,10 +84,10 @@ macos-render-timer=feedback
 
 - `MVK_CONFIG_LOG_LEVEL=<value>` - sets MoltenVK log level:
 
-  * `0` - disabled
-  * `1` - error
-  * `2` - warning
-  * `3` - verbose
+  - `0` - disabled
+  - `1` - error
+  - `2` - warning
+  - `3` - verbose
 
 - `MTL_HUD_ENABLED=1` - enables the [Metal Performance HUD].
 

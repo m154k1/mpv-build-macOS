@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 #
 # x264
 # https://code.videolan.org/videolan/x264.git

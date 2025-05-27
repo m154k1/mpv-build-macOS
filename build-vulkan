@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 #
 # Vulkan Headers
 # https://github.com/KhronosGroup/Vulkan-Headers.git
