@@ -13,6 +13,10 @@ on:
 jobs:
   build:
     runs-on: macos-15
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,9 +46,17 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET: 15.4
 
       - name: Upload Artifact
+        id: upload
         uses: actions/upload-artifact@v4
         with:
           name: mpv-macos-15-arm64
           path: mpv.tar.gz
+          if-no-files-found: error
           compression-level: 0
           overwrite: true
+
+      - name: Attest Artifact
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: mpv-macos-15-arm64.zip
+          subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
