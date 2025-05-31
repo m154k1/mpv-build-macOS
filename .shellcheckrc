@@ -1,5 +1,10 @@
 external-sources=true
 
+enable=avoid-nullary-conditions
+enable=quote-safe-variables
+enable=require-double-brackets
+enable=require-variable-braces
+
 # Ignore "Expressions don't expand in single quotes"
 disable=SC2016
 

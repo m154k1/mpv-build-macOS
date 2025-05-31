@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # libjxl
 # https://github.com/libjxl/libjxl.git

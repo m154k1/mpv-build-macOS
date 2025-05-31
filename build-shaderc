@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # shaderc
 # https://github.com/google/shaderc.git

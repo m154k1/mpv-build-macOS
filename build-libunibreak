@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # libunibreak
 # https://github.com/adah1972/libunibreak.git

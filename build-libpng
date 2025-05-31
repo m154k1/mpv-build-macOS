@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # libpng
 # https://github.com/pnggroup/libpng.git

@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # libarchive
 # https://github.com/libarchive/libarchive.git

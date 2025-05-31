@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # GNU FriBidi
 # https://github.com/fribidi/fribidi.git

@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # libdvdread
 # https://code.videolan.org/videolan/libdvdread.git

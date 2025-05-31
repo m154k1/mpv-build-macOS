@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # x265
 # https://bitbucket.org/multicoreware/x265_git.git

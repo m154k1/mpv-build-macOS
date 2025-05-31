@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # Little-CMS
 # https://github.com/mm2/Little-CMS.git

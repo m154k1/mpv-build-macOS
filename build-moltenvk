@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # MoltenVK
 # https://github.com/KhronosGroup/MoltenVK.git

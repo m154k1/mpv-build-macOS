@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # FreeType
 # https://gitlab.freedesktop.org/freetype/freetype.git

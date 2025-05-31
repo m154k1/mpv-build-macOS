@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # Opus
 # https://gitlab.xiph.org/xiph/opus.git

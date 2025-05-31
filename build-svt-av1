@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/bin/bash -e
 #
 # SVT-AV1
 # https://gitlab.com/AOMediaCodec/SVT-AV1.git
