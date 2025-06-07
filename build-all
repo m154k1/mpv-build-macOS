@@ -20,7 +20,6 @@ cd "$(dirname "$0")"
 ./build-libjxl
 ./build-freetype
 ./build-harfbuzz
-./build-freetype
 ./build-fribidi
 ./build-libunibreak
 ./build-libass

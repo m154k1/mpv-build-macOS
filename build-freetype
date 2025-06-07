@@ -22,6 +22,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
+  -Dharfbuzz=dynamic \
   -Dbrotli=enabled \
   -Dbzip2=enabled \
   -Dmmap=enabled \
