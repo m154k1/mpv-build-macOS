@@ -1,0 +1,49 @@
+#!/bin/bash -e
+#
+# whisper
+# https://github.com/ggml-org/whisper.cpp.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="whisper"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/whisper.cpp"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo
+echo "*** $0: started"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DBUILD_SHARED_LIBS=ON \
+  -DWHISPER_BUILD_EXAMPLES=OFF \
+  -DWHISPER_BUILD_TESTS=OFF \
+  -DWHISPER_BUILD_SERVER=OFF \
+  -DGGML_NATIVE=ON \
+  -DGGML_LTO=ON \
+  -DGGML_METAL=ON \
+  -DGGML_METAL_USE_BF16=ON \
+  -DGGML_METAL_NDEBUG=ON \
+  -DGGML_CCACHE=OFF \
+  -DGGML_OPENMP=OFF \
+  -DGGML_BUILD_EXAMPLES=OFF \
+  -DGGML_BUILD_TESTS=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/lib/cmake
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "*** $0: finished"
