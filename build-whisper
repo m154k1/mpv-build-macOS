@@ -25,7 +25,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DWHISPER_BUILD_EXAMPLES=OFF \
   -DWHISPER_BUILD_TESTS=OFF \
   -DWHISPER_BUILD_SERVER=OFF \
-  -DGGML_NATIVE=ON \
+  -DGGML_NATIVE="$([[ -z "${CI}" ]] && echo ON || echo OFF)" \
   -DGGML_LTO=ON \
   -DGGML_METAL=ON \
   -DGGML_METAL_USE_BF16=ON \
