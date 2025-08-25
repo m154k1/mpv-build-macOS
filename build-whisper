@@ -11,6 +11,8 @@ pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/whisper.cpp"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
+GGML_NATIVE="$([[ -z "${CI}" ]] && echo ON || echo OFF)"
+
 echo
 echo "*** $0: started"
 
@@ -25,7 +27,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DWHISPER_BUILD_EXAMPLES=OFF \
   -DWHISPER_BUILD_TESTS=OFF \
   -DWHISPER_BUILD_SERVER=OFF \
-  -DGGML_NATIVE="$([[ -z "${CI}" ]] && echo ON || echo OFF)" \
+  -DGGML_NATIVE="${GGML_NATIVE}" \
   -DGGML_LTO=ON \
   -DGGML_METAL=ON \
   -DGGML_METAL_USE_BF16=ON \
