@@ -1,0 +1,17 @@
+diff --git a/src/vulkan/formats.c b/src/vulkan/formats.c
+index 8dc39d2..3ddebd0 100644
+--- a/src/vulkan/formats.c
++++ b/src/vulkan/formats.c
+@@ -602,12 +602,6 @@ void vk_setup_formats(struct pl_gpu_t *gpu)
+                 fmt->caps |= bits[i].caps;
+         }
+ 
+-        // Internal capabilities
+-        if (vk->props.vendorID != VK_VENDOR_ID_NVIDIA) { // FIXME: remove when upstream works
+-            if (texflags & VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT)
+-                fmtp->can_host_copy = true;
+-        }
+-
+         // For blit emulation via compute shaders
+         if (!(fmt->caps & PL_FMT_CAP_BLITTABLE) && (fmt->caps & PL_FMT_CAP_STORABLE)) {
+             fmt->caps |= PL_FMT_CAP_BLITTABLE;

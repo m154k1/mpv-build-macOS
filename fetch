@@ -102,6 +102,7 @@ fetch_libplacebo() {
   local url="https://code.videolan.org/videolan/libplacebo.git"
   rm -rf src/libplacebo
   git -C src clone --depth 1 --recurse-submodules=3rdparty/{fast_float,jinja,markupsafe} "${url}"
+  git -C src/libplacebo apply --apply --stat "$(realpath patches/libplacebo-disable-host-copy.diff)"
 }
 
 fetch_libpng() {
