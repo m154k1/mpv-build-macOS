@@ -38,6 +38,7 @@ jobs:
       - name: Install Dependencies
         run: |
           brew update -q
+          brew uninstall -q cmake
           xargs brew install -q --formula < homebrew/build-deps.txt
 
       - name: Fetch Sources
