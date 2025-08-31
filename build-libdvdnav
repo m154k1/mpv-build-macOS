@@ -9,25 +9,31 @@ set -a; . .env; set +a
 pkgname="libdvdnav"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libdvdnav"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 echo
 echo "*** $0: started"
 
-cd "${srcdir}"
+rm -rf "${builddir}"
 
-./configure \
+meson setup "${builddir}" "${srcdir}" \
   --prefix="${pkgdir}" \
-  --enable-shared \
-  --disable-static \
-  --disable-apidoc \
+  -Ddefault_library=shared \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Denable_docs=false \
+  -Denable_examples=false \
   "$@"
 
-make -j4
+meson compile -C "${builddir}"
 
 rm -rf "${pkgdir}"
 
-make install
-rm -rf "${pkgdir}"/lib/*.la "${pkgdir}"/share
+meson install -C "${builddir}" --tags runtime,devel
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
 
 echo "*** $0: finished"

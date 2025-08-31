@@ -23,6 +23,8 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
+  -Denable_docs=false \
+  -Dlibdvdcss=disabled \
   "$@"
 
 meson compile -C "${builddir}"

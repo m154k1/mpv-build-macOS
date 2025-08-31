@@ -82,9 +82,8 @@ fetch_libbluray() {
 }
 
 fetch_libdvdnav() {
-  local version="6.1.1"
-  local url="https://download.videolan.org/pub/videolan/libdvdnav/${version}/libdvdnav-${version}.tar.bz2"
-  fetch_tar "${url}" libdvdnav
+  local url="https://code.videolan.org/videolan/libdvdnav.git"
+  git -C src clone --depth 1 "${url}"
 }
 
 fetch_libdvdread() {
