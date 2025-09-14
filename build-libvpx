@@ -10,6 +10,8 @@ pkgname="libvpx"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/libvpx"
 
+target="$(uname -m)-darwin$(uname -r | cut -d . -f 1)-gcc"
+
 echo
 echo "*** $0: started"
 
@@ -17,6 +19,7 @@ cd "${srcdir}"
 
 ./configure \
   --prefix="${pkgdir}" \
+  --target="${target}" \
   --enable-shared \
   --enable-runtime-cpu-detect \
   --enable-pic \
