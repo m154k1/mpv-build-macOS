@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
 
     permissions:
       contents: read
@@ -47,13 +47,13 @@ jobs:
       - name: Build & Install
         run: ./build-all --bundle
         env:
-          MACOSX_DEPLOYMENT_TARGET: 15.5
+          MACOSX_DEPLOYMENT_TARGET: 26.0
 
       - name: Upload Artifact
         id: upload
         uses: actions/upload-artifact@v4
         with:
-          name: mpv-macos-15-arm64
+          name: mpv-macos-26-arm64
           path: mpv.tar.gz
           if-no-files-found: error
           compression-level: 0
@@ -62,5 +62,5 @@ jobs:
       - name: Attest Artifact
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: mpv-macos-15-arm64.zip
+          subject-name: mpv-macos-26-arm64.zip
           subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}

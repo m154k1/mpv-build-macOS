@@ -37,6 +37,7 @@ jobs:
         run: editorconfig-checker
 
   actionlint:
+    if: false # doesn't support macos-26
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

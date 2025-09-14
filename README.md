@@ -8,7 +8,7 @@ A set of scripts that help build [mpv](https://mpv.io) on macOS.
 > [!TIP]
 > Prebuilt mpv.app from GitHub Actions is available at [nightly.link].
 >
-> Download: [`mpv-macos-15-arm64.zip`] (macOS 15.5 & Apple M1 or newer)
+> Download: [`mpv-macos-26-arm64.zip`] (macOS 26.0 & Apple M1 or newer)
 
 ### Requirements
 
@@ -93,5 +93,5 @@ macos-render-timer=feedback
 - `MTL_HUD_ENABLED=1` - enables the [Metal Performance HUD].
 
 [nightly.link]: https://nightly.link/m154k1/mpv-build-macOS/workflows/build/master
-[`mpv-macos-15-arm64.zip`]: https://nightly.link/m154k1/mpv-build-macOS/workflows/build/master/mpv-macos-15-arm64.zip
+[`mpv-macos-26-arm64.zip`]: https://nightly.link/m154k1/mpv-build-macOS/workflows/build/master/mpv-macos-26-arm64.zip
 [Metal Performance HUD]: https://developer.apple.com/documentation/xcode/monitoring-your-metal-apps-graphics-performance
