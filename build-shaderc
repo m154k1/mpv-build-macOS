@@ -27,6 +27,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DSHADERC_SKIP_EXECUTABLES=ON \
   -DSHADERC_SKIP_TESTS=ON \
   -DSHADERC_SKIP_EXAMPLES=ON \
   "$@"
@@ -36,7 +37,7 @@ cmake --build "${builddir}"
 rm -rf "${pkgdir}"
 
 cmake --install "${builddir}"
-rm -rf "${pkgdir}"/{bin,lib/{*.a,pkgconfig/*{combined,static}.pc}}
+rm -rf "${pkgdir}"/lib/{*.a,pkgconfig/*{combined,static}.pc}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
