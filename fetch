@@ -148,9 +148,16 @@ fetch_mpv() {
 }
 
 fetch_opus() {
-  local version="1.5.2"
-  local url="https://downloads.xiph.org/releases/opus/opus-${version}.tar.gz"
-  fetch_tar "${url}" opus
+  local url="https://github.com/xiph/opus.git"
+  rm -rf src/opus
+  git -C src clone --single-branch "${url}"
+
+  local model
+  cd src/opus
+  model="$(sed -nE 's;^dnn/download_model\.sh "(.+)"$;\1;p' autogen.sh)"
+  echo "dnn model checksum: '${model}'"
+  ./dnn/download_model.sh "${model}"
+  cd -
 }
 
 fetch_shaderc() {
