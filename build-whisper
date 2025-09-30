@@ -30,7 +30,6 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DGGML_NATIVE="${GGML_NATIVE}" \
   -DGGML_LTO=ON \
   -DGGML_METAL=ON \
-  -DGGML_METAL_USE_BF16=ON \
   -DGGML_METAL_NDEBUG=ON \
   -DGGML_CCACHE=OFF \
   -DGGML_OPENMP=OFF \
