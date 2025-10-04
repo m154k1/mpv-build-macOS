@@ -18,7 +18,7 @@ echo "*** $0: started"
 cd "${srcdir}"
 
 sed -i '' 's/xcodebuild "$@"/'"${xcodebuild}"' "$@"/g' fetchDependencies
-sed -i '' 's/XCODEBUILD := .*/XCODEBUILD := '"${xcodebuild}"'/' Makefile
+sed -Ei '' 's/(XCODEBUILD := ).*/\1'"${xcodebuild}"'/' Makefile
 ./fetchDependencies --macos --v-headers-root "${PREFIX}"
 make macos MVK_CONFIG_LOG_LEVEL=1 "$@"
 
