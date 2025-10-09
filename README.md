@@ -72,15 +72,6 @@ mkdir /opt/local/stow
 
 :arrow_right: Add `/opt/local/bin` (or `$PREFIX/bin`) to your `$PATH`.
 
-### Recommended settings
-
-```cfg
-# ~/.config/mpv/mpv.conf
-vo=gpu-next
-hwdec=videotoolbox
-macos-render-timer=feedback
-```
-
 ### Environment variables
 
 - `MVK_CONFIG_LOG_LEVEL=<value>` - sets MoltenVK log level:
