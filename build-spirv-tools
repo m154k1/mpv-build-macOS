@@ -1,0 +1,42 @@
+#!/bin/bash -e
+#
+# SPIRV-Tools
+# https://github.com/KhronosGroup/SPIRV-Tools.git
+#
+# SPIRV-Headers
+# https://github.com/KhronosGroup/SPIRV-Headers.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="spirv-tools"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/SPIRV-Tools"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo
+echo "*** $0: started"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DSPIRV_SKIP_EXECUTABLES=ON \
+  -DSPIRV_SKIP_TESTS=ON \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/lib/cmake
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "*** $0: finished"
