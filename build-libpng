@@ -20,6 +20,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DSKIP_INSTALL_EXPORT=ON \
   -DPNG_STATIC=OFF \
   -DPNG_FRAMEWORK=OFF \
