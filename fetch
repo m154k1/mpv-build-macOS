@@ -138,6 +138,9 @@ fetch_moltenvk() {
   local url="https://github.com/KhronosGroup/MoltenVK.git"
   rm -rf src/MoltenVK
   git -C src clone --depth 1 "${url}"
+
+  echo -e '\n\ntarget_compile_definitions(MoltenVK_Common PUBLIC' \
+    'MVK_USE_METAL_PRIVATE_API=1)' >> src/MoltenVK/Common/CMakeLists.txt
 }
 
 fetch_mpv() {

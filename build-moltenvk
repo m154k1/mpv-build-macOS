@@ -9,30 +9,40 @@ set -a; . .env; set +a
 pkgname="moltenvk"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/MoltenVK"
-builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
-xcodebuild="xcodebuild ARCHS=$(uname -m) ONLY_ACTIVE_ARCH=YES"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+icddir="${pkgdir}/etc/vulkan/icd.d"
 
 echo
 echo "*** $0: started"
 
-cd "${srcdir}"
+rm -rf "${builddir}"
 
-sed -i '' 's/xcodebuild "$@"/'"${xcodebuild}"' "$@"/g' fetchDependencies
-sed -Ei '' 's/(XCODEBUILD := ).*/\1'"${xcodebuild}"'/' Makefile
-./fetchDependencies --macos --v-headers-root "${PREFIX}"
-make macos MVK_CONFIG_LOG_LEVEL=1 MVK_USE_METAL_PRIVATE_API=1 "$@"
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DMVK_CONFIG_LOG_LEVEL=error \
+  -DCPM_SOURCE_CACHE=src/CPM \
+  -Wno-dev \
+  "$@"
 
-sed -i '' 's;\./;../../../lib/;' "${builddir}"/MoltenVK_icd.json
-echo
-echo 'MoltenVK_icd.json:'
-cat "${builddir}"/MoltenVK_icd.json
-echo
+cmake --build "${builddir}"
 
 rm -rf "${pkgdir}"
 
-install -d "${pkgdir}"/{lib,etc/vulkan/icd.d}
-install -vm755 "${builddir}"/libMoltenVK.dylib "${pkgdir}"/lib
-install -vm644 "${builddir}"/MoltenVK_icd.json "${pkgdir}"/etc/vulkan/icd.d
+cmake --install "${builddir}"
+install -d "${icddir}"
+install -vm644 "${srcdir}"/MoltenVK/icd/MoltenVK_icd.json "${icddir}"
+sed -i '' "s;\./;${pkgdir}/lib/;" "${icddir}"/MoltenVK_icd.json
+rm -rf "${pkgdir}"/{bin,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
+
+echo
+echo 'MoltenVK_icd.json:'
+cat "${icddir}"/MoltenVK_icd.json
+echo
+
+rm -rf "${builddir}"
 
 echo "*** $0: finished"
