@@ -10,7 +10,6 @@ pkgname="moltenvk"
 pkgdir="${STOWDIR}/${pkgname}"
 srcdir="src/MoltenVK"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
-icddir="${pkgdir}/etc/vulkan/icd.d"
 
 echo
 echo "*** $0: started"
@@ -23,6 +22,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DMVK_CONFIG_LOG_LEVEL=error \
+  -DMVK_USE_METAL_PRIVATE_API=ON \
   -DCPM_SOURCE_CACHE=src/CPM \
   -Wno-dev \
   "$@"
@@ -32,16 +32,7 @@ cmake --build "${builddir}"
 rm -rf "${pkgdir}"
 
 cmake --install "${builddir}"
-install -d "${icddir}"
-install -vm644 "${srcdir}"/MoltenVK/icd/MoltenVK_icd.json "${icddir}"
-sed -i '' "s;\./;${pkgdir}/lib/;" "${icddir}"/MoltenVK_icd.json
-rm -rf "${pkgdir}"/{bin,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
-
-echo
-echo 'MoltenVK_icd.json:'
-cat "${icddir}"/MoltenVK_icd.json
-echo
 
 rm -rf "${builddir}"
 
