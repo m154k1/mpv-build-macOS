@@ -1,0 +1,53 @@
+#!/bin/bash -e
+#
+# mesa
+# https://gitlab.freedesktop.org/mesa/mesa.git
+#
+# Dependencies:
+# - brew install libclc spirv-llvm-translator
+# - pip3 install -U -t .python -r .python/requirements.txt
+# - ./build-spirv-tools
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="mesa"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/mesa"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo
+echo "*** $0: started"
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  --native-file=meson/native/llvm.ini \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dplatforms=macos \
+  -Dvulkan-drivers=kosmickrisp \
+  -Dvulkan-icd-dir="${pkgdir}/etc/vulkan/icd.d" \
+  -Dgallium-drivers=[] \
+  -Dvideo-codecs=all \
+  -Dopengl=false \
+  -Dgles1=disabled \
+  -Dgles2=disabled \
+  -Dglx=disabled \
+  -Dxmlconfig=disabled \
+  -Dzstd=disabled \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "*** $0: finished"
