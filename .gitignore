@@ -1,4 +1,7 @@
 /src/**
 !/src/.gitkeep
 
+.python/**
+!.python/requirements.txt
+
 mpv.tar.gz
