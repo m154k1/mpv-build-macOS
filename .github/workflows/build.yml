@@ -51,7 +51,7 @@ jobs:
 
       - name: Upload Artifact
         id: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: mpv-macos-26-arm64
           path: mpv.tar.gz
