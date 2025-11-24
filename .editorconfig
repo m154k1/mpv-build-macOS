@@ -2,9 +2,10 @@ root = true
 
 [*]
 charset = utf-8
-insert_final_newline = true
-indent_style = space
+end_of_line = lf
 indent_size = 2
+indent_style = space
+insert_final_newline = true
 max_line_length = 100
 trim_trailing_whitespace = true
 
@@ -13,8 +14,8 @@ max_line_length = unset
 
 [{homebrew,patches,src}/**]
 charset = unset
-insert_final_newline = unset
-indent_style = unset
 indent_size = unset
+indent_style = unset
+insert_final_newline = unset
 max_line_length = unset
 trim_trailing_whitespace = unset

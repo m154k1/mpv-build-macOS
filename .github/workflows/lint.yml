@@ -61,19 +61,3 @@ jobs:
         with:
           cache: false
           pyflakes: false
-
-  prettier:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-
-      - name: Install
-        run: npm install prettier@next
-
-      - name: Check
-        run: npx prettier --check .

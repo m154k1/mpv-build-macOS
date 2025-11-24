@@ -8,7 +8,7 @@ A set of scripts that help build [mpv](https://mpv.io) on macOS.
 > [!TIP]
 > Prebuilt mpv.app from GitHub Actions is available at [nightly.link].
 >
-> Download: [`mpv-macos-26-arm64.zip`] (macOS 26.0 & Apple M1 or newer)
+> Download: [`mpv-macos-26-arm64.zip`] (macOS 26 & Apple M1 or newer)
 
 ### Requirements
 

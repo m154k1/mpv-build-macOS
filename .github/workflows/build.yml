@@ -8,6 +8,7 @@ on:
       - master
     paths:
       - ".github/workflows/build.yml"
+      - ".env"
       - "build-*"
       - "fetch"
 
