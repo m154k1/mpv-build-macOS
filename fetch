@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 cd "$(dirname "$0")"
+set -a; . .env; set +a
 
 print_usage() {
   echo "Usage:"
@@ -133,6 +134,13 @@ fetch_luajit() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_mesa() {
+  local url="https://gitlab.freedesktop.org/mesa/mesa.git"
+  rm -rf src/mesa
+  git -C src clone --depth 1 "${url}"
+  pip3 install --no-cache-dir -U mako packaging pyyaml
+}
+
 fetch_moltenvk() {
   local url="https://github.com/KhronosGroup/MoltenVK.git"
   rm -rf src/MoltenVK
@@ -162,6 +170,14 @@ fetch_shaderc() {
   local url="https://github.com/google/shaderc.git"
   rm -rf src/shaderc
   git -C src clone --depth 1 "${url}"
+}
+
+fetch_spirv-tools() {
+  local toolsurl="https://github.com/KhronosGroup/SPIRV-Tools.git"
+  local headersurl="https://github.com/KhronosGroup/SPIRV-Headers.git"
+  rm -rf src/SPIRV-Tools
+  git -C src clone --depth 1 "${toolsurl}"
+  git -C src clone --depth 1 "${headersurl}" SPIRV-Tools/external/spirv-headers
 }
 
 fetch_svt-av1() {
@@ -300,6 +316,9 @@ else
       "luajit")
         fetch_luajit
         ;;
+      "mesa")
+        fetch_mesa
+        ;;
       "moltenvk")
         fetch_moltenvk
         ;;
@@ -311,6 +330,9 @@ else
         ;;
       "shaderc")
         fetch_shaderc
+        ;;
+      "spirv-tools")
+        fetch_spirv-tools
         ;;
       "svt-av1")
         fetch_svt-av1
