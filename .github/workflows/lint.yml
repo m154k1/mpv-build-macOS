@@ -24,7 +24,7 @@ jobs:
         run: touch ./requirements.txt
 
       - name: Check
-        uses: reactive-firewall/shellcheck-scan@v1
+        uses: reactive-firewall/shellcheck-scan@v2
         with:
           match: .env build-* fetch
           publish-artifacts: ${{ github.ref_name == github.event.repository.default_branch }}
