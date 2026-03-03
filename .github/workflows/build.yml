@@ -69,7 +69,7 @@ jobs:
           overwrite: true
 
       - name: Attest Artifact
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: mpv-macos-26-arm64.zip
           subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
