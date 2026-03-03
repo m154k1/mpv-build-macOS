@@ -62,14 +62,12 @@ jobs:
         id: upload
         uses: actions/upload-artifact@v7
         with:
-          name: mpv-macos-26-arm64
           path: mpv.tar.gz
           if-no-files-found: error
-          compression-level: 0
-          overwrite: true
+          archive: false
 
       - name: Attest Artifact
         uses: actions/attest-build-provenance@v4
         with:
-          subject-name: mpv-macos-26-arm64.zip
+          subject-name: mpv.tar.gz
           subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
