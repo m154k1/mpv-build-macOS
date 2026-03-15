@@ -43,6 +43,7 @@ cd "${srcdir}"
   --enable-libx264 \
   --enable-libx265 \
   --enable-libxml2 \
+  --enable-openssl \
   --enable-whisper \
   --disable-static \
   --disable-debug \
