@@ -27,7 +27,7 @@ jobs:
 
       - name: Select Xcode
         run: |
-          sudo xcode-select -s /Applications/Xcode_26.3.app
+          sudo xcode-select -s /Applications/Xcode_26.4.app
           xcodebuild -version
 
       - name: Create Stow Directory
@@ -47,7 +47,7 @@ jobs:
       - name: Build & Install
         run: ./build-all --bundle
         env:
-          MACOSX_DEPLOYMENT_TARGET: 26.3
+          MACOSX_DEPLOYMENT_TARGET: 26.4
 
       - name: Print Summary
         run: |
