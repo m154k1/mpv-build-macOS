@@ -22,7 +22,7 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DMVK_CONFIG_LOG_LEVEL=error \
   -DMVK_USE_METAL_PRIVATE_API=ON \
-  -DCPM_SOURCE_CACHE=src/CPM \
+  -DCPM_SOURCE_CACHE="${srcdir}/External/CPM" \
   -Wno-dev \
   "$@"
 
