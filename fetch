@@ -177,11 +177,13 @@ fetch_uchardet() {
 }
 
 fetch_vulkan() {
-  local loaderurl="https://github.com/KhronosGroup/Vulkan-Loader.git"
-  local headersurl="https://github.com/KhronosGroup/Vulkan-Headers.git"
-  rm -rf src/Vulkan-{Loader,Headers}
-  git -C src clone --depth 1 "${loaderurl}"
-  git -C src clone --depth 1 "${headersurl}"
+  local vulkan_loader_url="https://github.com/KhronosGroup/Vulkan-Loader.git"
+  local vulkan_headers_url="https://github.com/KhronosGroup/Vulkan-Headers.git"
+  local spirv_headers_url="https://github.com/KhronosGroup/SPIRV-Headers.git"
+  rm -rf src/Vulkan-{Loader,Headers} src/SPIRV-Headers
+  git -C src clone --depth 1 "${vulkan_loader_url}"
+  git -C src clone --depth 1 "${vulkan_headers_url}"
+  git -C src clone --depth 1 "${spirv_headers_url}"
 }
 
 fetch_whisper() {
