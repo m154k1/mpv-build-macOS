@@ -3,6 +3,7 @@
 cd "$(dirname "$0")"
 
 ./build-vulkan
+./build-spirv-tools
 ./build-moltenvk
 ./build-shaderc
 ./build-lcms2

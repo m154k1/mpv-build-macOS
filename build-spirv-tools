@@ -1,18 +1,18 @@
 #!/bin/bash -e
 #
-# Vulkan Loader
-# https://github.com/KhronosGroup/Vulkan-Loader.git
+# SPIRV-Tools
+# https://github.com/KhronosGroup/SPIRV-Tools.git
 #
-# Vulkan Headers
-# https://github.com/KhronosGroup/Vulkan-Headers.git
+# SPIRV-Headers
+# https://github.com/KhronosGroup/SPIRV-Headers.git
 #
 cd "$(dirname "$0")"
 set -a; . .env; set +a
 
-pkgname="vulkan"
+pkgname="spirv-tools"
 pkgdir="${STOWDIR}/${pkgname}"
-loader_srcdir="src/Vulkan-Loader"
-headers_srcdir="src/Vulkan-Headers"
+tools_srcdir="src/SPIRV-Tools"
+headers_srcdir="src/SPIRV-Headers"
 builddir="${TMPDIR:-/tmp}/build.${pkgname}"
 
 echo "::group::$0"
@@ -22,26 +22,27 @@ rm -rf "${builddir}" "${pkgdir}"
 cmake -B "${builddir}" -S "${headers_srcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
   -DCMAKE_BUILD_TYPE=Release \
-  -DVULKAN_HEADERS_ENABLE_INSTALL=ON \
-  -DVULKAN_HEADERS_ENABLE_TESTS=OFF
+  -DSPIRV_HEADERS_ENABLE_INSTALL=ON \
+  -DSPIRV_HEADERS_ENABLE_TESTS=OFF
 
 cmake --install "${builddir}"
 
 rm -rf "${builddir}"
 
-cmake -B "${builddir}" -S "${loader_srcdir}" \
+cmake -B "${builddir}" -S "${tools_srcdir}" \
   -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-  -DVULKAN_HEADERS_INSTALL_DIR="${pkgdir}" \
-  -DSYSCONFDIR="${PREFIX}/etc" \
-  -DBUILD_TESTS=OFF \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DSPIRV-Headers_SOURCE_DIR="${pkgdir}" \
+  -DSPIRV_SKIP_EXECUTABLES=ON \
+  -DSPIRV_SKIP_TESTS=ON \
   "$@"
 
 cmake --build "${builddir}"
 cmake --install "${builddir}"
-rm -rf "${pkgdir}"/{lib/cmake,loader,share/cmake}
+rm -rf "${pkgdir}"/{lib,share}/cmake
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"

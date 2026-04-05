@@ -20,9 +20,10 @@ cmake -B "${builddir}" -S "${srcdir}" \
   -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DCPM_SOURCE_CACHE="${srcdir}/External/CPM" \
   -DMVK_CONFIG_LOG_LEVEL=error \
   -DMVK_USE_METAL_PRIVATE_API=ON \
-  -DCPM_SOURCE_CACHE="${srcdir}/External/CPM" \
+  -DMVK_EXCLUDE_SPIRV_TOOLS=ON \
   -Wno-dev \
   "$@"
 

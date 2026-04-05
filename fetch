@@ -164,6 +164,14 @@ fetch_shaderc() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_spirv-tools() {
+  local tools_url="https://github.com/KhronosGroup/SPIRV-Tools.git"
+  local headers_url="https://github.com/KhronosGroup/SPIRV-Headers.git"
+  rm -rf src/SPIRV-{Tools,Headers}
+  git -C src clone --depth 1 "${tools_url}"
+  git -C src clone --depth 1 "${headers_url}"
+}
+
 fetch_svt-av1() {
   local url="https://gitlab.com/AOMediaCodec/SVT-AV1.git"
   rm -rf src/SVT-AV1
@@ -177,13 +185,11 @@ fetch_uchardet() {
 }
 
 fetch_vulkan() {
-  local vulkan_loader_url="https://github.com/KhronosGroup/Vulkan-Loader.git"
-  local vulkan_headers_url="https://github.com/KhronosGroup/Vulkan-Headers.git"
-  local spirv_headers_url="https://github.com/KhronosGroup/SPIRV-Headers.git"
-  rm -rf src/Vulkan-{Loader,Headers} src/SPIRV-Headers
-  git -C src clone --depth 1 "${vulkan_loader_url}"
-  git -C src clone --depth 1 "${vulkan_headers_url}"
-  git -C src clone --depth 1 "${spirv_headers_url}"
+  local loader_url="https://github.com/KhronosGroup/Vulkan-Loader.git"
+  local headers_url="https://github.com/KhronosGroup/Vulkan-Headers.git"
+  rm -rf src/Vulkan-{Loader,Headers}
+  git -C src clone --depth 1 "${loader_url}"
+  git -C src clone --depth 1 "${headers_url}"
 }
 
 fetch_whisper() {
@@ -233,6 +239,7 @@ if [[ "$*" == "all" ]]; then
   fetch_mpv
   fetch_opus
   fetch_shaderc
+  fetch_spirv-tools
   fetch_svt-av1
   fetch_uchardet
   fetch_vulkan
@@ -313,6 +320,9 @@ else
         ;;
       "shaderc")
         fetch_shaderc
+        ;;
+      "spirv-tools")
+        fetch_spirv-tools
         ;;
       "svt-av1")
         fetch_svt-av1
