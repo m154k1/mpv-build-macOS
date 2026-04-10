@@ -111,7 +111,7 @@ fetch_libpng() {
 }
 
 fetch_libunibreak() {
-  local version="6.1"
+  local version="7.0"
   local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
   fetch_tar "${url}" libunibreak
 }
