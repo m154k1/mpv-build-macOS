@@ -30,10 +30,11 @@ git clone "https://github.com/m154k1/mpv-build-macOS.git"
 cd mpv-build-macOS
 ```
 
-:arrow_right: Install build dependencies from Homebrew:
+:arrow_right: Install dependencies from Homebrew:
 
 ```sh
 xargs brew install --formula < homebrew/build-deps.txt
+xargs brew install --formula < homebrew/runtime-deps.txt
 ```
 
 :arrow_right: Create an installation directory for local packages:

@@ -25,6 +25,8 @@ meson setup "${builddir}" "${srcdir}" \
   -Dvulkan=enabled \
   -Dshaderc=enabled \
   -Dlcms=enabled \
+  -Ddovi=enabled \
+  -Dlibdovi=enabled \
   -Dxxhash=enabled \
   -Dopengl=disabled \
   -Dd3d11=disabled \
