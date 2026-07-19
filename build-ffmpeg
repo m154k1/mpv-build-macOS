@@ -36,7 +36,6 @@ cd "${srcdir}"
   --enable-libjxl \
   --enable-libopus \
   --enable-libplacebo \
-  --enable-libshaderc \
   --enable-libsvtav1 \
   --enable-libvpx \
   --enable-libwebp \
