@@ -8,7 +8,7 @@ A set of scripts that help build [mpv](https://mpv.io) on macOS.
 > [!TIP]
 > Prebuilt mpv.app can be downloaded from [GitHub Actions](https://github.com/m154k1/mpv-build-macOS/actions/workflows/build.yml).
 >
-> Look for `mpv.tar.gz` artifact (requires macOS 26 and Apple M1 or newer).
+> Look for `mpv.tar.gz` artifact (requires macOS 27 or newer).
 
 ### Requirements
 
