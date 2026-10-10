@@ -43,12 +43,12 @@ cd "${srcdir}"
   --enable-libx264 \
   --enable-libx265 \
   --enable-libxml2 \
-  --enable-openssl \
   --enable-vulkan \
   --enable-whisper \
   --disable-static \
   --disable-debug \
   --disable-doc \
+  --disable-securetransport \
   --disable-sdl2 \
   --disable-libxcb \
   --disable-xlib \
