@@ -21,8 +21,12 @@ meson setup "${builddir}" "${srcdir}" \
   -Dbuildtype=release \
   -Db_lto=true \
   -Db_lto_mode=thin \
+  -Dfastfloat=true \
+  -Dthreaded=true \
   -Djpeg=disabled \
   -Dtiff=disabled \
+  -Dtests=disabled \
+  -Dutils=false \
   "$@"
 
 meson compile -C "${builddir}"

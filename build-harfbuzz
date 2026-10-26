@@ -23,6 +23,8 @@ meson setup "${builddir}" "${srcdir}" \
   -Db_lto_mode=thin \
   -Dcoretext=enabled \
   -Dfreetype=enabled \
+  -Dpng=enabled \
+  -Dzlib=enabled \
   -Dglib=disabled \
   -Dgobject=disabled \
   -Dcairo=disabled \
@@ -32,6 +34,7 @@ meson setup "${builddir}" "${srcdir}" \
   -Dintrospection=disabled \
   -Ddocs=disabled \
   -Dutilities=disabled \
+  -Dgpu_demo=disabled \
   "$@"
 
 meson compile -C "${builddir}"
