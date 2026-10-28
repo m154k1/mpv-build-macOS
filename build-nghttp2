@@ -1,0 +1,38 @@
+#!/bin/bash -e
+#
+# nghttp2
+# https://github.com/nghttp2/nghttp2.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="nghttp2"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/nghttp2"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DENABLE_LIB_ONLY=ON \
+  -DENABLE_DOC=OFF \
+  -DBUILD_TESTING=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/{lib/cmake,share}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

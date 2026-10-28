@@ -22,6 +22,12 @@ fetch_brotli() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_curl() {
+  local url="https://github.com/curl/curl.git"
+  rm -rf src/curl
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_dav1d() {
   local url="https://code.videolan.org/videolan/dav1d.git"
   rm -rf src/dav1d
@@ -110,6 +116,18 @@ fetch_libpng() {
   git -C src clone --depth 1 "${url}"
 }
 
+fetch_libpsl() {
+  local url="https://github.com/rockdaboot/libpsl.git"
+  rm -rf src/libpsl
+  git -C src clone --depth 1 --recurse-submodules "${url}"
+}
+
+fetch_libssh2() {
+  local url="https://github.com/libssh2/libssh2.git"
+  rm -rf src/libssh2
+  git -C src clone --depth 1 "${url}"
+}
+
 fetch_libunibreak() {
   local version="8.0"
   local url="https://github.com/adah1972/libunibreak/releases/download/libunibreak_${version//./_}/libunibreak-${version}.tar.gz"
@@ -120,7 +138,7 @@ fetch_libvpx() {
   local url="https://chromium.googlesource.com/webm/libvpx"
   rm -rf src/libvpx
   git -C src clone --depth 1 "${url}"
-  git -C src/libvpx apply --apply --stat "$(realpath patches/libvpx-darwin27.diff)"
+  git -C src/libvpx apply "$(realpath patches/libvpx-darwin27.diff)"
 }
 
 fetch_libwebp() {
@@ -132,6 +150,12 @@ fetch_libwebp() {
 fetch_luajit() {
   local url="https://github.com/LuaJIT/LuaJIT.git"
   rm -rf src/LuaJIT
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_lz4() {
+  local url="https://github.com/lz4/lz4.git"
+  rm -rf src/lz4
   git -C src clone --depth 1 "${url}"
 }
 
@@ -151,6 +175,25 @@ fetch_moltenvk() {
 fetch_mpv() {
   local url="https://github.com/mpv-player/mpv.git"
   rm -rf src/mpv
+  git -C src clone --depth 1 "${url}"
+}
+
+fetch_nghttp2() {
+  local url="https://github.com/nghttp2/nghttp2.git"
+  rm -rf src/nghttp2
+  git -C src clone --depth 1 "${url}"
+  git -C src/nghttp2 apply "$(realpath patches/nghttp2-cmake-shared-lib.diff)"
+}
+
+fetch_nghttp3() {
+  local url="https://github.com/ngtcp2/nghttp3.git"
+  rm -rf src/nghttp3
+  git -C src clone --depth 1 --recurse-submodules=lib/sfparse "${url}"
+}
+
+fetch_ngtcp2() {
+  local url="https://github.com/ngtcp2/ngtcp2.git"
+  rm -rf src/ngtcp2
   git -C src clone --depth 1 "${url}"
 }
 
@@ -207,6 +250,11 @@ fetch_whisper() {
   git -C src clone --single-branch "${url}"
 }
 
+fetch_wolfssl() {
+  local url="https://github.com/wolfSSL/wolfssl/archive/master.tar.gz"
+  fetch_tar "${url}" wolfssl
+}
+
 fetch_x264() {
   local url="https://code.videolan.org/videolan/x264.git"
   rm -rf src/x264
@@ -218,6 +266,12 @@ fetch_x265() {
   fetch_tar "${url}" x265
 }
 
+fetch_zstd() {
+  local url="https://github.com/facebook/zstd.git"
+  rm -rf src/zstd
+  git -C src clone --depth 1 "${url}"
+}
+
 if [[ $# == 0 ]]; then
   print_usage
   exit 1
@@ -225,6 +279,7 @@ fi
 
 if [[ "$*" == "all" ]]; then
   fetch_brotli
+  fetch_curl
   fetch_dav1d
   fetch_ffmpeg
   fetch_freetype
@@ -240,12 +295,18 @@ if [[ "$*" == "all" ]]; then
   fetch_libjxl
   fetch_libplacebo
   fetch_libpng
+  fetch_libpsl
+  fetch_libssh2
   fetch_libunibreak
   fetch_libvpx
   fetch_libwebp
   fetch_luajit
+  fetch_lz4
   fetch_moltenvk
   fetch_mpv
+  fetch_nghttp2
+  fetch_nghttp3
+  fetch_ngtcp2
   fetch_opus
   fetch_shaderc
   fetch_spirv-tools
@@ -253,13 +314,18 @@ if [[ "$*" == "all" ]]; then
   fetch_uchardet
   fetch_vulkan
   fetch_whisper
+  fetch_wolfssl
   fetch_x264
   fetch_x265
+  fetch_zstd
 else
   for arg in "$@"; do
     case "${arg}" in
       "brotli")
         fetch_brotli
+        ;;
+      "curl")
+        fetch_curl
         ;;
       "dav1d")
         fetch_dav1d
@@ -306,6 +372,12 @@ else
       "libpng")
         fetch_libpng
         ;;
+      "libpsl")
+        fetch_libpsl
+        ;;
+      "libssh2")
+        fetch_libssh2
+        ;;
       "libunibreak")
         fetch_libunibreak
         ;;
@@ -318,6 +390,9 @@ else
       "luajit")
         fetch_luajit
         ;;
+      "lz4")
+        fetch_lz4
+        ;;
       "mesa")
         fetch_mesa
         ;;
@@ -326,6 +401,15 @@ else
         ;;
       "mpv")
         fetch_mpv
+        ;;
+      "nghttp2")
+        fetch_nghttp2
+        ;;
+      "nghttp3")
+        fetch_nghttp3
+        ;;
+      "ngtcp2")
+        fetch_ngtcp2
         ;;
       "opus")
         fetch_opus
@@ -348,11 +432,17 @@ else
       "whisper")
         fetch_whisper
         ;;
+      "wolfssl")
+        fetch_wolfssl
+        ;;
       "x264")
         fetch_x264
         ;;
       "x265")
         fetch_x265
+        ;;
+      "zstd")
+        fetch_zstd
         ;;
       *)
         echo "Unknown argument:"

@@ -1,0 +1,37 @@
+#!/bin/bash -e
+#
+# libpsl
+# https://github.com/rockdaboot/libpsl.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="libpsl"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libpsl"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dtests=false \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}" --tags runtime,devel
+rm -rf "${pkgdir}"/bin
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

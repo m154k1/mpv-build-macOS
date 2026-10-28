@@ -2,6 +2,16 @@
 
 cd "$(dirname "$0")"
 
+./build-wolfssl
+./build-brotli
+./build-lz4
+./build-zstd
+./build-ngtcp2
+./build-nghttp3
+./build-nghttp2
+./build-libssh2
+./build-libpsl
+./build-curl
 ./build-vulkan
 ./build-spirv-tools
 ./build-moltenvk
@@ -16,7 +26,6 @@ cd "$(dirname "$0")"
 ./build-opus
 ./build-libwebp
 ./build-libpng
-./build-brotli
 ./build-highway
 ./build-libjxl
 ./build-freetype

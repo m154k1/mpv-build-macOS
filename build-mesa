@@ -26,14 +26,14 @@ meson setup "${builddir}" "${srcdir}" \
   -Dplatforms=macos \
   -Dvulkan-drivers=kosmickrisp \
   -Dvulkan-icd-dir="${pkgdir}/etc/vulkan/icd.d" \
-  -Dgallium-drivers=[] \
-  -Dvideo-codecs=all \
+  -Dzstd=enabled \
+  -Dgallium-drivers="[]" \
+  -Dvideo-codecs="[]" \
   -Dopengl=false \
   -Dgles1=disabled \
   -Dgles2=disabled \
   -Dglx=disabled \
   -Dxmlconfig=disabled \
-  -Dzstd=disabled \
   "$@"
 
 meson compile -C "${builddir}"

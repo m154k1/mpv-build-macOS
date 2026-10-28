@@ -1,0 +1,49 @@
+#!/bin/bash -e
+#
+# curl
+# https://github.com/curl/curl.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="curl"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/curl"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCURL_LTO=ON \
+  -DCURL_DROP_UNUSED=ON \
+  -DCURL_USE_PKGCONFIG=ON \
+  -DCURL_USE_WOLFSSL=ON \
+  -DCURL_USE_GSSAPI=ON \
+  -DCURL_ENABLE_APPLE_FAST_UDP=ON \
+  -DUSE_NGTCP2=ON \
+  -DUSE_APPLE_IDN=ON \
+  -DUSE_HTTPSRR=ON \
+  -DUSE_ECH=ON \
+  -DENABLE_CURL_MANUAL=OFF \
+  -DBUILD_LIBCURL_DOCS=OFF \
+  -DBUILD_MISC_DOCS=OFF \
+  -DBUILD_EXAMPLES=OFF \
+  -DBUILD_TESTING=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/lib/cmake
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

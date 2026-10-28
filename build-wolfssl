@@ -1,0 +1,40 @@
+#!/bin/bash -e
+#
+# wolfSSL
+# https://github.com/wolfSSL/wolfssl.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="wolfssl"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/wolfssl"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DWOLFSSL_ALL=yes \
+  -DWOLFSSL_ALL_QUANTUM_CRYPTO=yes \
+  -DWOLFSSL_LIBSSH2=yes \
+  -DWOLFSSL_EXAMPLES=no \
+  -DWOLFSSL_CRYPT_TESTS=no \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/{lib/cmake,share}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

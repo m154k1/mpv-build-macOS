@@ -1,0 +1,43 @@
+#!/bin/bash -e
+#
+# libssh2
+# https://github.com/libssh2/libssh2.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="libssh2"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/libssh2"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+cmake -B "${builddir}" -S "${srcdir}" \
+  -DCMAKE_INSTALL_PREFIX="${pkgdir}" \
+  -DCMAKE_INSTALL_NAME_DIR="${pkgdir}/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+  -DCRYPTO_BACKEND=wolfSSL \
+  -DBUILD_STATIC_LIBS=OFF \
+  -DBUILD_EXAMPLES=OFF \
+  -DBUILD_TESTING=OFF \
+  -DLIBSSH2_USE_PKGCONFIG=ON \
+  -DLIBSSH2_NO_DEPRECATED=ON \
+  -DLIBSSH2_BUILD_DOCS=OFF \
+  -DLIBSSH2_USE_CMAKECONFIG=OFF \
+  "$@"
+
+cmake --build "${builddir}"
+
+rm -rf "${pkgdir}"
+
+cmake --install "${builddir}"
+rm -rf "${pkgdir}"/{lib/cmake,share}
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

@@ -1,0 +1,36 @@
+#!/bin/bash -e
+#
+# lz4
+# https://github.com/lz4/lz4.git
+#
+cd "$(dirname "$0")"
+set -a; . .env; set +a
+
+pkgname="lz4"
+pkgdir="${STOWDIR}/${pkgname}"
+srcdir="src/lz4/build/meson"
+builddir="${TMPDIR:-/tmp}/build.${pkgname}"
+
+echo "::group::$0"
+
+rm -rf "${builddir}"
+
+meson setup "${builddir}" "${srcdir}" \
+  --prefix="${pkgdir}" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Db_lto=true \
+  -Db_lto_mode=thin \
+  -Dossfuzz=false \
+  "$@"
+
+meson compile -C "${builddir}"
+
+rm -rf "${pkgdir}"
+
+meson install -C "${builddir}"
+stow -Rd "${STOWDIR}" "${pkgname}"
+
+rm -rf "${builddir}"
+
+echo "::endgroup::"

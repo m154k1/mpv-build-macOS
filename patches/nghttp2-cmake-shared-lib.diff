@@ -1,0 +1,18 @@
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index 3b6a4400..d5066b12 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -119,13 +119,5 @@ if(BUILD_STATIC_LIBS)
+   list(APPEND nghttp2_exports ${STATIC_LIB})
+ endif()
+ 
+-if(BUILD_SHARED_LIBS)
+-  set(LIB_SELECTED ${SHARED_LIB})
+-else()
+-  set(LIB_SELECTED ${STATIC_LIB})
+-endif()
+-
+-add_library(nghttp2 ALIAS ${LIB_SELECTED})
+-
+ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libnghttp2.pc"
+   DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
