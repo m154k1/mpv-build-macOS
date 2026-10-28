@@ -42,7 +42,7 @@ cmake -B "${builddir}" -S "${tools_srcdir}" \
 
 cmake --build "${builddir}"
 cmake --install "${builddir}"
-rm -rf "${pkgdir}"/{lib,share}/cmake
+rm -rf "${pkgdir}"/{lib/cmake,share}
 stow -Rd "${STOWDIR}" "${pkgname}"
 
 rm -rf "${builddir}"
